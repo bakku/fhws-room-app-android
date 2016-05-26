@@ -11,7 +11,7 @@ public class TimetableActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.timetable_grid);
+        setContentView(R.layout.timetable);
 
     }
 }
