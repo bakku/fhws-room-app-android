@@ -6,6 +6,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:background="@android:color/holo_orange_dark"/>
+        android:background="@android:color/holo_orange_dark"
+        android:elevation="4dp"/>
 
 </LinearLayout>
