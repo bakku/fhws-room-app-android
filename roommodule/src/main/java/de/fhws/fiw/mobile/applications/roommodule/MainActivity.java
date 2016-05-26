@@ -14,13 +14,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button button_to_timetable = (Button)findViewById(R.id.button_to_timetable);
-//        setOnClickListenerToTimetable(button_to_timetable);
-        button_to_timetable.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TimetableActivity.class);
-                startActivity(intent);
-            };
-        });
+        setOnClickListenerToTimetable(button_to_timetable);
     }
 
     private void setOnClickListenerToTimetable(Button button_to_timetable){
