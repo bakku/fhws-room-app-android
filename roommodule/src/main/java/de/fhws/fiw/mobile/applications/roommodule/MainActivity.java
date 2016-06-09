@@ -15,12 +15,24 @@ public class MainActivity extends AppCompatActivity {
 
         Button button_to_timetable = (Button)findViewById(R.id.button_to_timetable);
         setOnClickListenerToTimetable(button_to_timetable);
+
+        Button button_to_detail = (Button) findViewById(R.id.button_to_detail);
+        setOnClickListenerToDetail(button_to_detail);
     }
 
     private void setOnClickListenerToTimetable(Button button_to_timetable){
         button_to_timetable.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, TimetableActivity.class);
+                startActivity(intent);
+            };
+        });
+    }
+
+    private void setOnClickListenerToDetail(Button button_to_detail) {
+        button_to_detail.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
                 startActivity(intent);
             };
         });
