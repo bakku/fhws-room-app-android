@@ -1,4 +1,4 @@
-package de.fhws.fiw.mobile.applications.roommodule;
+package de.fhws.fiw.mobile.applications.roommodule.activities;
 
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -13,6 +13,8 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import de.fhws.fiw.mobile.applications.roommodule.R;
 
 /**
  * Created by Patrick Müller on 26.05.2016.

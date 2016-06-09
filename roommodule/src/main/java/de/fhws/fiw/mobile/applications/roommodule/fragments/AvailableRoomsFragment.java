@@ -1,4 +1,4 @@
-package de.fhws.fiw.mobile.applications.roommodule;
+package de.fhws.fiw.mobile.applications.roommodule.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import de.fhws.fiw.mobile.applications.roommodule.R;
 
 
 /**

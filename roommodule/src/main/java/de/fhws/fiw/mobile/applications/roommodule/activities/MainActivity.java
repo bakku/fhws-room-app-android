@@ -1,4 +1,4 @@
-package de.fhws.fiw.mobile.applications.roommodule;
+package de.fhws.fiw.mobile.applications.roommodule.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import de.fhws.fiw.mobile.applications.roommodule.R;
 import de.fhws.fiw.mobile.applications.roommodule.network.RoomDownloader;
 
 public class MainActivity extends AppCompatActivity {
