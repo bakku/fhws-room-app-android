@@ -19,8 +19,11 @@ import de.fhws.fiw.mobile.applications.roommodule.models.RoomData;
  */
 public class RoomDownloader extends AsyncTask<Void, Void, Void> {
 
-    private Context context;
-    private DownloadFinishedListener downloadFinishedListener;
+    private DownloadListener downloadListener;
+
+    public RoomDownloader(DownloadListener downloadListener) {
+        this.downloadListener = downloadListener;
+    }
 
     @Override
     protected Void doInBackground(Void... params) {
@@ -35,9 +38,12 @@ public class RoomDownloader extends AsyncTask<Void, Void, Void> {
 
             JSONArray jsonArray = new JSONArray(response);
             RoomCreator.createRoomsFromJsonArray(jsonArray);
+
+
         }
         catch (Exception e) {
-            e.printStackTrace();
+            Log.e("TAG", "" + e.getMessage());
+            downloadListener.onDownloadError();
         }
         finally {
             connection.disconnect();
@@ -49,6 +55,7 @@ public class RoomDownloader extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         Log.e("TAG", RoomData.getInstance().getRoom(0).getRoomName());
-        Log.e("TAG", RoomData.getInstance().getRoom(0).getUrl());
+
+        downloadListener.onDownloadSuccess();
     }
 }

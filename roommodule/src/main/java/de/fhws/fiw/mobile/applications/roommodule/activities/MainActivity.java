@@ -3,13 +3,16 @@ package de.fhws.fiw.mobile.applications.roommodule.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import de.fhws.fiw.mobile.applications.roommodule.R;
+import de.fhws.fiw.mobile.applications.roommodule.network.DownloadListener;
 import de.fhws.fiw.mobile.applications.roommodule.network.RoomDownloader;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DownloadListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         Button button_to_overview = (Button) findViewById(R.id.button_to_overview);
         setOnClickListenerToOverview(button_to_overview);
 
-        new RoomDownloader().execute();
+        new RoomDownloader(this).execute();
     }
 
     private void setOnClickListenerToOverview(Button button_to_overview) {
@@ -53,5 +56,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             };
         });
+    }
+
+    @Override
+    public void onDownloadSuccess() {
+        Toast.makeText(this, "Download Success", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onDownloadError() {
+        Toast.makeText(this, "Error during download", Toast.LENGTH_LONG).show();
     }
 }
