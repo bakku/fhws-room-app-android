@@ -9,4 +9,6 @@
         android:background="@android:color/holo_orange_dark"
         android:elevation="4dp"/>
 
+    <!--Elevation funktioniert nicht-->
+
 </LinearLayout>
