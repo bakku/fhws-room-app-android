@@ -14,6 +14,10 @@ public class Room {
     public Room() {
     }
 
+    public Room(String roomName) {
+        this.roomName = roomName;
+    }
+
     public Room(String roomName, List<Lecture> listOfLectures) {
         this.roomName = roomName;
         this.listOfLectures = listOfLectures;
