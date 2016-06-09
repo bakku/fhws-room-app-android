@@ -24,6 +24,10 @@ public class RoomData {
         listOfRooms = new LinkedList<>();
     }
 
+    public List<Room> getAllRooms() {
+        return listOfRooms;
+    }
+
     public void addRoom(Room room) {
         listOfRooms.add(room);
     }
