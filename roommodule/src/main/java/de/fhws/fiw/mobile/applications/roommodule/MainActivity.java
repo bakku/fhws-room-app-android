@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import de.fhws.fiw.mobile.applications.roommodule.network.RoomDownloader;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -21,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
         Button button_to_overview = (Button) findViewById(R.id.button_to_overview);
         setOnClickListenerToOverview(button_to_overview);
+
+        new RoomDownloader().execute();
     }
 
     private void setOnClickListenerToOverview(Button button_to_overview) {
