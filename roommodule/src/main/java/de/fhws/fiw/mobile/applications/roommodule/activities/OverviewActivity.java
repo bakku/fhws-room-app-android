@@ -14,10 +14,12 @@ import de.fhws.fiw.mobile.applications.roommodule.transformer.DepthPageTransform
  */
 public class OverviewActivity extends AppCompatActivity{
 
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.timetable);
+        setContentView(R.layout.tabview);
+
     }
 
     private void initViewPagerAndTabs() {
