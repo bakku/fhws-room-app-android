@@ -7,24 +7,24 @@ import java.util.List;
  */
 public class Room {
 
-    private String title;
+    private String roomName;
 
     private List<Lecture> listOfLectures;
 
     public Room() {
     }
 
-    public Room(String title, List<Lecture> listOfLectures) {
-        this.title = title;
+    public Room(String roomName, List<Lecture> listOfLectures) {
+        this.roomName = roomName;
         this.listOfLectures = listOfLectures;
     }
 
-    public String getTitle() {
-        return title;
+    public String getRoomName() {
+        return roomName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 
     public List<Lecture> getListOfLectures() {

@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class Lecture {
 
-    private String title;
+    private String lectureName;
 
     private Date startOfLecture;
 
@@ -16,18 +16,18 @@ public class Lecture {
     public Lecture() {
     }
 
-    public Lecture(String title, Date startOfLecture, Date endOfLecture) {
-        this.title = title;
+    public Lecture(String lectureName, Date startOfLecture, Date endOfLecture) {
+        this.lectureName = lectureName;
         this.startOfLecture = startOfLecture;
         this.endOfLecture = endOfLecture;
     }
 
-    public String getTitle() {
-        return title;
+    public String getLectureName() {
+        return lectureName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setLectureName(String lectureName) {
+        this.lectureName = lectureName;
     }
 
     public Date getStartOfLecture() {
