@@ -18,6 +18,18 @@ public class MainActivity extends AppCompatActivity {
 
         Button button_to_detail = (Button) findViewById(R.id.button_to_detail);
         setOnClickListenerToDetail(button_to_detail);
+
+        Button button_to_overview = (Button) findViewById(R.id.button_to_overview);
+        setOnClickListenerToOverview(button_to_overview);
+    }
+
+    private void setOnClickListenerToOverview(Button button_to_overview) {
+        button_to_overview.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, OverviewActivity.class);
+                startActivity(intent);
+            };
+        });
     }
 
     private void setOnClickListenerToTimetable(Button button_to_timetable){
