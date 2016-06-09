@@ -12,7 +12,9 @@ public class RoomCreator {
         try {
             for (int i = 0; i < array.length(); i++) {
                 JSONObject roomObject = array.getJSONObject(i);
-                Room room = new Room(roomObject.getString("label"));
+
+                Room room = new Room(roomObject.getString("label"),
+                                     roomObject.getString("url"));
 
                 RoomData.getInstance().addRoom(room);
             }

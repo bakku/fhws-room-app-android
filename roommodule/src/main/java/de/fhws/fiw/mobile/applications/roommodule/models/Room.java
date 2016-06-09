@@ -9,13 +9,16 @@ public class Room {
 
     private String roomName;
 
+    private String url;
+
     private List<Lecture> listOfLectures;
 
     public Room() {
     }
 
-    public Room(String roomName) {
+    public Room(String roomName, String url) {
         this.roomName = roomName;
+        this.url = url;
     }
 
     public Room(String roomName, List<Lecture> listOfLectures) {
@@ -38,5 +41,12 @@ public class Room {
     public void setListOfLectures(List<Lecture> listOfLectures) {
         this.listOfLectures = listOfLectures;
     }
-    
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

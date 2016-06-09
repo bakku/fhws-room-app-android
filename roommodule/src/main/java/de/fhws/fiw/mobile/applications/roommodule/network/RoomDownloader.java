@@ -22,15 +22,13 @@ public class RoomDownloader extends AsyncTask<Void, Void, Void> {
     private Context context;
     private DownloadFinishedListener downloadFinishedListener;
 
-    private static final String ROOMS_URL = "http://backend2.applab.fhws.de:8080/fhwsapi/v1/rooms";
-
     @Override
     protected Void doInBackground(Void... params) {
         HttpURLConnection connection = null;
         String response;
 
         try {
-            URL url = new URL(ROOMS_URL);
+            URL url = new URL(RoomURL.ALL_ROOMS_URL);
             connection = (HttpURLConnection) url.openConnection();
             InputStream is = connection.getInputStream();
             response = IOUtils.toString(is);
@@ -51,5 +49,6 @@ public class RoomDownloader extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         Log.e("TAG", RoomData.getInstance().getRoom(0).getRoomName());
+        Log.e("TAG", RoomData.getInstance().getRoom(0).getUrl());
     }
 }
