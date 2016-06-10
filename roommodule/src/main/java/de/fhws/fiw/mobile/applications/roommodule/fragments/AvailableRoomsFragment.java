@@ -4,11 +4,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import de.fhws.fiw.mobile.applications.roommodule.R;
+import de.fhws.fiw.mobile.applications.roommodule.adapter.AvailableRoomsAdapter;
+import de.fhws.fiw.mobile.applications.roommodule.models.RoomData;
 
 
 /**
@@ -65,8 +69,14 @@ public class AvailableRoomsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_available_rooms, container, false);
+        View view = inflater.inflate(R.layout.fragment_available_rooms, container, false);
+        RecyclerView mRecyclerView = (RecyclerView)view.findViewById(R.id.available_rooms_recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        RecyclerView.Adapter mAdapter = new AvailableRoomsAdapter(RoomData.getInstance().getAllRooms(),R.layout.fragment_available_rooms);
+        mRecyclerView.setAdapter(mAdapter);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
