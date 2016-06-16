@@ -1,6 +1,5 @@
 package de.fhws.fiw.mobile.applications.roommodule.network;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -29,21 +28,21 @@ public class RoomDownloader extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... params) {
         HttpURLConnection connection = null;
         String response;
+        JSONArray roomArray;
+        InputStream is;
 
         try {
-            URL url = new URL(RoomURL.ALL_ROOMS_URL);
+            URL url = new URL(BackendURL.ALL_ROOMS_URL);
             connection = (HttpURLConnection) url.openConnection();
-            InputStream is = connection.getInputStream();
+            is = connection.getInputStream();
             response = IOUtils.toString(is);
 
-            JSONArray jsonArray = new JSONArray(response);
-            RoomCreator.createRoomsFromJsonArray(jsonArray);
-
-
+            roomArray = new JSONArray(response);
+            RoomCreator.createRoomsFromJsonArray(roomArray);
         }
         catch (Exception e) {
             Log.e("TAG", "" + e.getMessage());
-            downloadListener.onDownloadError();
+            cancel(true);
         }
         finally {
             connection.disconnect();
@@ -54,8 +53,11 @@ public class RoomDownloader extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
-        Log.e("TAG", RoomData.getInstance().getRoom(0).getRoomName());
-
-        downloadListener.onDownloadSuccess();
+        if (isCancelled()) {
+            downloadListener.onDownloadError();
+        }
+        else {
+            downloadListener.onDownloadSuccess();
+        }
     }
 }
