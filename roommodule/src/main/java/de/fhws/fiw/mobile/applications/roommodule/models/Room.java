@@ -40,4 +40,14 @@ public class Room {
     public void setListOfLectures(List<Lecture> listOfLectures) {
         this.listOfLectures = listOfLectures;
     }
+
+    public void addLecture(Lecture lecture) {
+        for (Lecture l : listOfLectures) {
+            if (lecture.equals(l)) {
+                return;
+            }
+        }
+
+        listOfLectures.add(lecture);
+    }
 }

@@ -45,4 +45,16 @@ public class Lecture {
     public void setEndOfLecture(Date endOfLecture) {
         this.endOfLecture = endOfLecture;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Lecture lecture = (Lecture) o;
+
+        if (!lectureName.equals(lecture.lectureName)) return false;
+        if (!startOfLecture.equals(lecture.startOfLecture)) return false;
+        return endOfLecture.equals(lecture.endOfLecture);
+    }
 }

@@ -97,7 +97,7 @@ public class LectureDownloader extends AsyncTask<Void, Void, Void> {
 
                 Lecture newLecture = LectureCreator.createLectureFromEventJSONObject(eventAsJson);
 
-                room.getListOfLectures().add(newLecture);
+                room.addLecture(newLecture);
             }
             catch (Exception e) {
                 Log.e("TAG", "" + e.getMessage());
