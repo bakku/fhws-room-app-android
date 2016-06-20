@@ -32,7 +32,7 @@ public class RoomDownloader extends AsyncTask<Void, Void, Void> {
         InputStream is;
 
         try {
-            URL url = new URL(BackendURL.ALL_ROOMS_URL);
+            URL url = new URL(new BackendURLBuilder().allRooms().build());
             connection = (HttpURLConnection) url.openConnection();
             is = connection.getInputStream();
             response = IOUtils.toString(is);
@@ -57,7 +57,7 @@ public class RoomDownloader extends AsyncTask<Void, Void, Void> {
             downloadListener.onDownloadError();
         }
         else {
-            downloadListener.onDownloadSuccess();
+            new LectureDownloader(downloadListener).execute();
         }
     }
 }
