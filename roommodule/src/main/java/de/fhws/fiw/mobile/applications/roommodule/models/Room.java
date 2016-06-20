@@ -1,5 +1,6 @@
 package de.fhws.fiw.mobile.applications.roommodule.models;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -16,6 +17,7 @@ public class Room {
 
     public Room(String roomName) {
         this.roomName = roomName;
+        this.listOfLectures = new LinkedList<>();
     }
 
     public Room(String roomName, List<Lecture> listOfLectures) {

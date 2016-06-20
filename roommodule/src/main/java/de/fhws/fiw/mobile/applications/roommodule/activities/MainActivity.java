@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import de.fhws.fiw.mobile.applications.roommodule.R;
+import de.fhws.fiw.mobile.applications.roommodule.models.Lecture;
+import de.fhws.fiw.mobile.applications.roommodule.models.RoomData;
 import de.fhws.fiw.mobile.applications.roommodule.network.DownloadListener;
 import de.fhws.fiw.mobile.applications.roommodule.network.RoomDownloader;
 
@@ -61,6 +63,12 @@ public class MainActivity extends AppCompatActivity implements DownloadListener 
     @Override
     public void onDownloadSuccess() {
         Toast.makeText(this, "Download Success", Toast.LENGTH_LONG).show();
+
+        RoomData roomData = RoomData.getInstance();
+
+        for (Lecture l : roomData.getRoomByName("H.1.7").getListOfLectures()) {
+            System.out.println(l.getLectureName());
+        }
     }
 
     @Override
