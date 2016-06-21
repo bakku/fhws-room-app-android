@@ -32,31 +32,18 @@ public class TimetableActivity extends AppCompatActivity {
 
     private Room room;
 
+    private int sizeOfAnHourInDp;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timetable);
 
         this.timetable_layout = (FrameLayout) findViewById(R.id.timetable_framelayout_id);
+        saveSizeOfAnHourInDp();
         loadRoomData();
         iterateOverLectures();
 
-//        View mView = new View(getBaseContext());
-//        mView.setBackgroundColor(Color.BLACK);
-//
-//        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
-//                FrameLayout.LayoutParams.WRAP_CONTENT);
-//        timetable_layout.addView(mView, params);
-
-//        Log.d("TimetableActivity", "Die Farbe des Buttons: " + mView.getDrawingCacheBackgroundColor());
-
-//        Resources r = getResources();
-//        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, r.getDisplayMetrics());
-//
-//
-//        ViewGroup.LayoutParams layoutParamsOfView = mView.getLayoutParams();
-//        layoutParamsOfView.height = (int) px;
-//        layoutParamsOfView.width = (int) px;
     }
 
     private void loadRoomData() {
@@ -81,7 +68,13 @@ public class TimetableActivity extends AppCompatActivity {
             layoutParamsOfView.width = px;
             layoutParamsOfView.gravity = Gravity.TOP;
             layoutParamsOfView.topMargin = px;
+
         }
+    }
+
+    private void saveSizeOfAnHourInDp(){
+        int sizeOfHourInDp = (int) getResources().getDimension(R.dimen.timetable_grid_hour_size);
+        this.sizeOfAnHourInDp = sizeOfHourInDp;
     }
 
     private View createNewTimetableEntry(){
