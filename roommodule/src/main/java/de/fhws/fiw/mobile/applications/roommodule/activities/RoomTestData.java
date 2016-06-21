@@ -33,14 +33,14 @@ public class RoomTestData {
         lectureOne.setEndOfLecture(new GregorianCalendar(2016, 01, 01, 9, 30).getTime());
 
         Lecture lectureTwo = new Lecture();
-        lectureOne.setLectureName("Zweite Vorlesung");
-        lectureOne.setStartOfLecture(new GregorianCalendar(2016, 01, 01, 10, 30).getTime());
-        lectureOne.setEndOfLecture(new GregorianCalendar(2016, 01, 01, 11, 0).getTime());
+        lectureTwo.setLectureName("Zweite Vorlesung");
+        lectureTwo.setStartOfLecture(new GregorianCalendar(2016, 01, 01, 10, 30).getTime());
+        lectureTwo.setEndOfLecture(new GregorianCalendar(2016, 01, 01, 11, 0).getTime());
 
         Lecture lectureThree = new Lecture();
-        lectureOne.setLectureName("Dritte Vorlesung");
-        lectureOne.setStartOfLecture(new GregorianCalendar(2016, 01, 01, 15, 30).getTime());
-        lectureOne.setEndOfLecture(new GregorianCalendar(2016, 01, 01, 18, 30).getTime());
+        lectureThree.setLectureName("Dritte Vorlesung");
+        lectureThree.setStartOfLecture(new GregorianCalendar(2016, 01, 01, 15, 30).getTime());
+        lectureThree.setEndOfLecture(new GregorianCalendar(2016, 01, 01, 18, 30).getTime());
 
         List<Lecture> listOfLectures = new LinkedList<>();
         listOfLectures.add(lectureOne);
