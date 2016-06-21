@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import java.util.Date;
 
 import de.fhws.fiw.mobile.applications.roommodule.R;
+import de.fhws.fiw.mobile.applications.roommodule.helper.DpPixelConverter;
 import de.fhws.fiw.mobile.applications.roommodule.helper.TimeFormatter;
 import de.fhws.fiw.mobile.applications.roommodule.models.Lecture;
 import de.fhws.fiw.mobile.applications.roommodule.models.Room;
@@ -66,16 +68,19 @@ public class TimetableActivity extends AppCompatActivity {
         for(Lecture lecture : this.room.getListOfLectures()){
 
             View newView = createNewTimetableEntry();
-            FrameLayout.LayoutParams layoutParams = createLayoutParamsForNewView();
+//            FrameLayout.LayoutParams layoutParams = createLayoutParamsForNewView();
+
+            LinearLayout.LayoutParams layoutParams = createLinearLayoutParamsForNewView();
 
             this.timetable_layout.addView(newView, layoutParams);
 
-            Resources r = getResources();
-            float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, r.getDisplayMetrics());
+            int px = DpPixelConverter.dpToPixels(this, 40);
 
-            ViewGroup.LayoutParams layoutParamsOfView = newView.getLayoutParams();
-            layoutParamsOfView.height = (int) px;
-            layoutParamsOfView.width = (int) px;
+            FrameLayout.LayoutParams layoutParamsOfView = (FrameLayout.LayoutParams) newView.getLayoutParams();
+            layoutParamsOfView.height = px;
+            layoutParamsOfView.width = px;
+            layoutParamsOfView.gravity = Gravity.TOP;
+            layoutParamsOfView.topMargin = px;
         }
     }
 
@@ -90,6 +95,14 @@ public class TimetableActivity extends AppCompatActivity {
     private FrameLayout.LayoutParams createLayoutParamsForNewView(){
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
                 FrameLayout.LayoutParams.WRAP_CONTENT);
+
+        return params;
+    }
+
+    //TEST
+    private LinearLayout.LayoutParams createLinearLayoutParamsForNewView(){
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
 
         return params;
     }
