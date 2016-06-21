@@ -15,26 +15,33 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import de.fhws.fiw.mobile.applications.roommodule.R;
+import de.fhws.fiw.mobile.applications.roommodule.models.Lecture;
+import de.fhws.fiw.mobile.applications.roommodule.models.Room;
 
 /**
  * Created by Patrick Müller on 26.05.2016.
  */
 public class TimetableActivity extends AppCompatActivity {
 
+    private FrameLayout timetable_layout;
+
+    private Room room;
+
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timetable);
 
-        FrameLayout mainLayout = (FrameLayout) findViewById(R.id.timetable_framelayout_id);
+        this.timetable_layout = (FrameLayout) findViewById(R.id.timetable_framelayout_id);
+        loadRoomData();
+//        iterateOverLectures();
 
         View mView = new View(getBaseContext());
         mView.setBackgroundColor(Color.BLACK);
 
-
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
                 FrameLayout.LayoutParams.WRAP_CONTENT);
-        mainLayout.addView(mView, params);
+        timetable_layout.addView(mView, params);
 
         Log.d("TimetableActivity", "Die Farbe des Buttons: " + mView.getDrawingCacheBackgroundColor());
 
@@ -45,5 +52,25 @@ public class TimetableActivity extends AppCompatActivity {
         ViewGroup.LayoutParams layoutParamsOfView = mView.getLayoutParams();
         layoutParamsOfView.height = (int) px;
         layoutParamsOfView.width = (int) px;
+    }
+
+    private void loadRoomData() {
+        this.room = new RoomTestData().getTestRoom();
+    }
+
+    private void iterateOverLectures(){
+
+        for(Lecture lecture : this.room.getListOfLectures()){
+
+            createNewTimetableEntry();
+        }
+    }
+
+    private View createNewTimetableEntry(){
+
+        View mView = new View(getBaseContext());
+        mView.setBackgroundColor(Color.BLACK);
+
+        return mView;
     }
 }

@@ -3,7 +3,7 @@ package de.fhws.fiw.mobile.applications.roommodule.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import de.fhws.fiw.mobile.applications.roommodule.ViewHolder.DetailInformationViewHolder;
+import de.fhws.fiw.mobile.applications.roommodule.viewholder.DetailInformationViewHolder;
 
 /**
  * Created by student on 16.06.16.
