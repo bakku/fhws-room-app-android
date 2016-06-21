@@ -37,24 +37,24 @@ public class TimetableActivity extends AppCompatActivity {
 
         this.timetable_layout = (FrameLayout) findViewById(R.id.timetable_framelayout_id);
         loadRoomData();
-//        iterateOverLectures();
+        iterateOverLectures();
 
-        View mView = new View(getBaseContext());
-        mView.setBackgroundColor(Color.BLACK);
+//        View mView = new View(getBaseContext());
+//        mView.setBackgroundColor(Color.BLACK);
+//
+//        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
+//                FrameLayout.LayoutParams.WRAP_CONTENT);
+//        timetable_layout.addView(mView, params);
 
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT);
-        timetable_layout.addView(mView, params);
+//        Log.d("TimetableActivity", "Die Farbe des Buttons: " + mView.getDrawingCacheBackgroundColor());
 
-        Log.d("TimetableActivity", "Die Farbe des Buttons: " + mView.getDrawingCacheBackgroundColor());
-
-        Resources r = getResources();
-        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, r.getDisplayMetrics());
-
-
-        ViewGroup.LayoutParams layoutParamsOfView = mView.getLayoutParams();
-        layoutParamsOfView.height = (int) px;
-        layoutParamsOfView.width = (int) px;
+//        Resources r = getResources();
+//        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, r.getDisplayMetrics());
+//
+//
+//        ViewGroup.LayoutParams layoutParamsOfView = mView.getLayoutParams();
+//        layoutParamsOfView.height = (int) px;
+//        layoutParamsOfView.width = (int) px;
     }
 
     private void loadRoomData() {
@@ -65,16 +65,33 @@ public class TimetableActivity extends AppCompatActivity {
 
         for(Lecture lecture : this.room.getListOfLectures()){
 
-            createNewTimetableEntry();
+            View newView = createNewTimetableEntry();
+            FrameLayout.LayoutParams layoutParams = createLayoutParamsForNewView();
+
+            this.timetable_layout.addView(newView, layoutParams);
+
+            Resources r = getResources();
+            float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, r.getDisplayMetrics());
+
+            ViewGroup.LayoutParams layoutParamsOfView = newView.getLayoutParams();
+            layoutParamsOfView.height = (int) px;
+            layoutParamsOfView.width = (int) px;
         }
     }
 
     private View createNewTimetableEntry(){
 
-        View mView = new View(getBaseContext());
-        mView.setBackgroundColor(Color.BLACK);
+        View newView = new View(getBaseContext());
+        newView.setBackgroundColor(Color.BLACK);
 
-        return mView;
+        return newView;
+    }
+
+    private FrameLayout.LayoutParams createLayoutParamsForNewView(){
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT);
+
+        return params;
     }
 
     private int getHourOfDate(Date date){
