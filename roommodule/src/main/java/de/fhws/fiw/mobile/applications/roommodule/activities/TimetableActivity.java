@@ -34,6 +34,8 @@ public class TimetableActivity extends AppCompatActivity {
 
     private int sizeOfAnHourInDp;
 
+    private final int timetableBeginsAtHour = 8;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,25 +57,62 @@ public class TimetableActivity extends AppCompatActivity {
         for(Lecture lecture : this.room.getListOfLectures()){
 
             View newView = createNewTimetableEntry();
-//            FrameLayout.LayoutParams layoutParams = createLayoutParamsForNewView();
 
-            LinearLayout.LayoutParams layoutParams = createLinearLayoutParamsForNewView();
+            addViewToTimetable(newView);
 
-            this.timetable_layout.addView(newView, layoutParams);
+            int marginTop = calculateMarginTop(lecture);
 
-            int px = DpPixelConverter.dpToPixels(this, 40);
-
-            FrameLayout.LayoutParams layoutParamsOfView = (FrameLayout.LayoutParams) newView.getLayoutParams();
-            layoutParamsOfView.height = px;
-            layoutParamsOfView.width = px;
-            layoutParamsOfView.gravity = Gravity.TOP;
-            layoutParamsOfView.topMargin = px;
+            addMarginTopToView(newView, marginTop);
 
         }
     }
 
+    private int calculateMarginTop(Lecture lecture) {
+
+        int marginTop = 0;
+
+        int startHourOfLecture = TimeFormatter.getHourFromDate(lecture.getStartOfLecture());
+
+        int startMinutesOfLecture = TimeFormatter.getMinutesFromDate(lecture.getStartOfLecture());
+
+        int differenceInHours = calculateDifference(startHourOfLecture, this.timetableBeginsAtHour);
+
+        while(differenceInHours > 0){
+            marginTop += this.sizeOfAnHourInDp;
+            differenceInHours--;
+        }
+
+        //für viertelstunden noch machen
+
+        return marginTop;
+    }
+
+    private int calculateDifference(int startHourOfLecture, int timetableBeginsAtHour) {
+        return startHourOfLecture - timetableBeginsAtHour;
+    }
+
+    private void addMarginTopToView(View newView, int marginTop) {
+
+        int marginTopInPx = DpPixelConverter.dpToPixels(this, marginTop);
+
+        int heightAndWithInPx = DpPixelConverter.dpToPixels(this, 40); //TODO
+
+        FrameLayout.LayoutParams layoutParamsOfView = (FrameLayout.LayoutParams) newView.getLayoutParams();
+        layoutParamsOfView.height = heightAndWithInPx;
+        layoutParamsOfView.width = heightAndWithInPx;
+        layoutParamsOfView.gravity = Gravity.TOP;
+        layoutParamsOfView.topMargin = marginTopInPx;
+    }
+
+    private void addViewToTimetable(View newView) {
+        LinearLayout.LayoutParams layoutParams = createLinearLayoutParamsForNewView();
+
+        this.timetable_layout.addView(newView, layoutParams);
+    }
+
     private void saveSizeOfAnHourInDp(){
-        int sizeOfHourInDp = (int) getResources().getDimension(R.dimen.timetable_grid_hour_size);
+        int sizeOfHourInDp = (int) (getResources().getDimension(R.dimen.timetable_grid_hour_size) /
+                getResources().getDisplayMetrics().density);
         this.sizeOfAnHourInDp = sizeOfHourInDp;
     }
 

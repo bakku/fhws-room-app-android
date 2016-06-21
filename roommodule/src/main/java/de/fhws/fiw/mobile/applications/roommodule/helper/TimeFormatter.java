@@ -40,7 +40,7 @@ public class TimeFormatter {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
 
-        return calendar.get(Calendar.HOUR);
+        return calendar.get(Calendar.HOUR_OF_DAY);
     }
 
     public static int getMinutesFromDate(Date date){
