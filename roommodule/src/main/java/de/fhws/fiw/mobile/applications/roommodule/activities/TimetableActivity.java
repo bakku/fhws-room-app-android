@@ -14,7 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.Date;
+
 import de.fhws.fiw.mobile.applications.roommodule.R;
+import de.fhws.fiw.mobile.applications.roommodule.helper.TimeFormatter;
 import de.fhws.fiw.mobile.applications.roommodule.models.Lecture;
 import de.fhws.fiw.mobile.applications.roommodule.models.Room;
 
@@ -72,5 +75,13 @@ public class TimetableActivity extends AppCompatActivity {
         mView.setBackgroundColor(Color.BLACK);
 
         return mView;
+    }
+
+    private int getHourOfDate(Date date){
+        return TimeFormatter.getHourFromDate(date);
+    }
+
+    private int getMinutesOfDate(Date date){
+        return TimeFormatter.getMinutesFromDate(date);
     }
 }

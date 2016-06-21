@@ -35,16 +35,19 @@ public class TimeFormatter {
         return calendar.getTimeInMillis();
     }
 
-    public static int[] getHourAndMinutesFromDate(Date date){
-
-        int[] returnValue = new int[2];
+    public static int getHourFromDate(Date date){
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
 
-        returnValue[0] = calendar.get(Calendar.HOUR);
-        returnValue[1] = calendar.get(Calendar.MINUTE);
+        return calendar.get(Calendar.HOUR);
+    }
 
-        return returnValue;
+    public static int getMinutesFromDate(Date date){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        return calendar.get(Calendar.MINUTE);
     }
 }
