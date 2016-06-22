@@ -16,7 +16,6 @@ public class WorkCounter {
     }
 
     public void taskFinished() {
-        System.out.println("FINISHED");
         if (runningTasks.decrementAndGet() == 0) {
             downloadListener.onDownloadSuccess();
         }
