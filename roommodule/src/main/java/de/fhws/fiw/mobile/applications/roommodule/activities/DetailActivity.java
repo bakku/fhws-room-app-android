@@ -23,8 +23,9 @@ public class DetailActivity extends AppCompatActivity {
 
         initViewPagerAndTabs();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        // TODO: ueberpruefen ob OK
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Room Detail");
 
     }
