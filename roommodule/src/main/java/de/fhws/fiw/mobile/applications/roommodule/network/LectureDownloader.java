@@ -13,7 +13,6 @@ import de.fhws.fiw.mobile.applications.roommodule.helper.TimeFormatter;
 import de.fhws.fiw.mobile.applications.roommodule.models.Lecture;
 import de.fhws.fiw.mobile.applications.roommodule.models.LectureCreator;
 import de.fhws.fiw.mobile.applications.roommodule.models.Room;
-import de.fhws.fiw.mobile.applications.roommodule.models.RoomData;
 import de.fhws.fiw.mobile.applications.roommodule.network.request.Request;
 
 /**
@@ -22,23 +21,22 @@ import de.fhws.fiw.mobile.applications.roommodule.network.request.Request;
 public class LectureDownloader extends AsyncTask<Void, Void, Void> {
 
     private DownloadListener downloadListener;
-    private RoomData roomData;
+    private Room room;
+    WorkCounter workCounter;
 
-    public LectureDownloader(DownloadListener downloadListener) {
+    public LectureDownloader(DownloadListener downloadListener, Room room, WorkCounter workCounter) {
         this.downloadListener = downloadListener;
-        this.roomData = RoomData.getInstance();
+        this.room = room;
+        this.workCounter = workCounter;
     }
 
     @Override
     protected Void doInBackground(Void... params) {
+        String url = buildUrlForRoom(this.room);
 
-        for (Room room : roomData.getAllRooms()) {
-            String url = buildUrlForRoom(room);
+        List<String> eventUrls = retrieveEventUrls(url);
 
-            List<String> eventUrls = retrieveEventUrls(url);
-
-            addEventsToRoomData(room, eventUrls);
-        }
+        addEventsToRoomData(room, eventUrls);
 
         return null;
     }
@@ -49,7 +47,7 @@ public class LectureDownloader extends AsyncTask<Void, Void, Void> {
             downloadListener.onDownloadError();
         }
         else {
-            downloadListener.onDownloadSuccess();
+            workCounter.taskFinished();
         }
     }
 

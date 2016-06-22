@@ -5,7 +5,9 @@ import android.util.Log;
 
 import org.json.JSONArray;
 
+import de.fhws.fiw.mobile.applications.roommodule.models.Room;
 import de.fhws.fiw.mobile.applications.roommodule.models.RoomCreator;
+import de.fhws.fiw.mobile.applications.roommodule.models.RoomData;
 import de.fhws.fiw.mobile.applications.roommodule.network.request.Request;
 
 /**
@@ -44,7 +46,11 @@ public class RoomDownloader extends AsyncTask<Void, Void, Void> {
             downloadListener.onDownloadError();
         }
         else {
-            new LectureDownloader(downloadListener).execute();
+            WorkCounter workCounter = new WorkCounter(RoomData.getInstance().getAllRooms().size(), downloadListener);
+
+            for (Room room : RoomData.getInstance().getAllRooms()) {
+                new LectureDownloader(downloadListener, room, workCounter).execute();
+            }
         }
     }
 }
