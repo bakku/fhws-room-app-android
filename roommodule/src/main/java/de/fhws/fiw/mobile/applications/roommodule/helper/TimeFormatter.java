@@ -2,6 +2,7 @@ package de.fhws.fiw.mobile.applications.roommodule.helper;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by christian on 20/06/16.
@@ -32,5 +33,21 @@ public class TimeFormatter {
         calendar.set(year, month, day+1);
 
         return calendar.getTimeInMillis();
+    }
+
+    public static int getHourFromDate(Date date){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        return calendar.get(Calendar.HOUR_OF_DAY);
+    }
+
+    public static int getMinutesFromDate(Date date){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        return calendar.get(Calendar.MINUTE);
     }
 }

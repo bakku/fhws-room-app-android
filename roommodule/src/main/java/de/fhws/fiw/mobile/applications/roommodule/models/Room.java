@@ -50,4 +50,18 @@ public class Room {
 
         listOfLectures.add(lecture);
     }
+
+    @Override
+    public String toString(){
+
+        StringBuffer sb = new StringBuffer();
+
+        sb.append("Info für Raum " + this.roomName + "\n");
+
+        for(Lecture lecture : this.listOfLectures){
+            sb.append(lecture.toString() + "\n");
+        }
+
+        return sb.toString();
+    }
 }

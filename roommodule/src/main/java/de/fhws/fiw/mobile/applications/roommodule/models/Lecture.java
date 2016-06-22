@@ -57,4 +57,14 @@ public class Lecture {
         if (!startOfLecture.equals(lecture.startOfLecture)) return false;
         return endOfLecture.equals(lecture.endOfLecture);
     }
+
+    @Override
+    public String toString(){
+
+        StringBuffer sb = new StringBuffer();
+
+        sb.append(this.lectureName + " von " + this.startOfLecture + " bis " + this.endOfLecture);
+
+        return sb.toString();
+    }
 }

@@ -1,4 +1,4 @@
-package de.fhws.fiw.mobile.applications.roommodule.ViewHolder;
+package de.fhws.fiw.mobile.applications.roommodule.viewholder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

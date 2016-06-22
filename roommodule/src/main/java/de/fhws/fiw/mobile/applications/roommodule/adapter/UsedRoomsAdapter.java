@@ -7,8 +7,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import de.fhws.fiw.mobile.applications.roommodule.ViewHolder.AvailableRoomsViewholder;
-import de.fhws.fiw.mobile.applications.roommodule.ViewHolder.UsedRoomsViewHolder;
+import de.fhws.fiw.mobile.applications.roommodule.viewholder.UsedRoomsViewHolder;
 import de.fhws.fiw.mobile.applications.roommodule.models.Room;
 
 /**
