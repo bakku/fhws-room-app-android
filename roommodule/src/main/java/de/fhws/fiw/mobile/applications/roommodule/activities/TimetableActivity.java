@@ -52,9 +52,9 @@ public class TimetableActivity extends AppCompatActivity {
         this.room = new RoomTestData().getTestRoom();
     }
 
-    private void iterateOverLectures(){
+    private void iterateOverLectures() {
 
-        for(Lecture lecture : this.room.getListOfLectures()){
+        for (Lecture lecture : this.room.getListOfLectures()) {
 
             View newView = createNewTimetableEntry();
 
@@ -77,7 +77,7 @@ public class TimetableActivity extends AppCompatActivity {
 
         int differenceInHours = calculateDifference(startHourOfLecture, this.timetableBeginsAtHour);
 
-        while(differenceInHours > 0){
+        while (differenceInHours > 0) {
             marginTop += this.sizeOfAnHourInDp;
             differenceInHours--;
         }
@@ -110,13 +110,13 @@ public class TimetableActivity extends AppCompatActivity {
         this.timetable_layout.addView(newView, layoutParams);
     }
 
-    private void saveSizeOfAnHourInDp(){
+    private void saveSizeOfAnHourInDp() {
         int sizeOfHourInDp = (int) (getResources().getDimension(R.dimen.timetable_grid_hour_size) /
                 getResources().getDisplayMetrics().density);
         this.sizeOfAnHourInDp = sizeOfHourInDp;
     }
 
-    private View createNewTimetableEntry(){
+    private View createNewTimetableEntry() {
 
         View newView = new View(getBaseContext());
         newView.setBackgroundColor(Color.BLACK);
@@ -124,7 +124,7 @@ public class TimetableActivity extends AppCompatActivity {
         return newView;
     }
 
-    private FrameLayout.LayoutParams createLayoutParamsForNewView(){
+    private FrameLayout.LayoutParams createLayoutParamsForNewView() {
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
                 FrameLayout.LayoutParams.WRAP_CONTENT);
 
@@ -132,18 +132,18 @@ public class TimetableActivity extends AppCompatActivity {
     }
 
     //TEST
-    private LinearLayout.LayoutParams createLinearLayoutParamsForNewView(){
+    private LinearLayout.LayoutParams createLinearLayoutParamsForNewView() {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
 
         return params;
     }
 
-    private int getHourOfDate(Date date){
+    private int getHourOfDate(Date date) {
         return TimeFormatter.getHourFromDate(date);
     }
 
-    private int getMinutesOfDate(Date date){
+    private int getMinutesOfDate(Date date) {
         return TimeFormatter.getMinutesFromDate(date);
     }
 }
