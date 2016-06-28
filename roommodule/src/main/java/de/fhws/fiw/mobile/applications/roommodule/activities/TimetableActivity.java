@@ -1,18 +1,12 @@
 package de.fhws.fiw.mobile.applications.roommodule.activities;
 
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Date;
@@ -34,7 +28,11 @@ public class TimetableActivity extends AppCompatActivity {
 
     private int sizeOfAnHourInDp;
 
-    private final int timetableBeginsAtHour = 8;
+    private final int TIMETABLE_BEGINS_AT_HOUR = 8;
+
+    private final int WIDTH_OF_TIMETABLE_ENTRY = 240;
+
+    private final int LEFT_MARGIN_OF_TIMETABLE_ENTRY = 64;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +54,12 @@ public class TimetableActivity extends AppCompatActivity {
 
         for (Lecture lecture : this.room.getListOfLectures()) {
 
-            View newView = createNewTimetableEntry();
+            LinearLayout newView = createNewTimetableEntry();
+
+            TextView textView = new TextView(this);
+            textView.setText("Grundlagen Informatik");
+            textView.setTextColor(Color.WHITE);
+            newView.addView(textView);
 
             addViewToTimetable(newView);
 
@@ -75,7 +78,7 @@ public class TimetableActivity extends AppCompatActivity {
 
         int startMinutesOfLecture = TimeFormatter.getMinutesFromDate(lecture.getStartOfLecture());
 
-        int differenceInHours = calculateDifference(startHourOfLecture, this.timetableBeginsAtHour);
+        int differenceInHours = calculateDifference(startHourOfLecture, this.TIMETABLE_BEGINS_AT_HOUR);
 
         while (differenceInHours > 0) {
             marginTop += this.sizeOfAnHourInDp;
@@ -95,11 +98,16 @@ public class TimetableActivity extends AppCompatActivity {
 
         int marginTopInPx = DpPixelConverter.dpToPixels(this, marginTop);
 
-        int heightAndWithInPx = DpPixelConverter.dpToPixels(this, 40); //TODO
+        int widthInPx = DpPixelConverter.dpToPixels(this, WIDTH_OF_TIMETABLE_ENTRY);
+
+        int heightInPx = DpPixelConverter.dpToPixels(this, 40); //TODO
+
+        int leftMarginInPx = DpPixelConverter.dpToPixels(this, LEFT_MARGIN_OF_TIMETABLE_ENTRY);
 
         FrameLayout.LayoutParams layoutParamsOfView = (FrameLayout.LayoutParams) newView.getLayoutParams();
-        layoutParamsOfView.height = heightAndWithInPx;
-        layoutParamsOfView.width = heightAndWithInPx;
+        layoutParamsOfView.leftMargin = leftMarginInPx;
+        layoutParamsOfView.height = heightInPx;
+        layoutParamsOfView.width = widthInPx;
         layoutParamsOfView.gravity = Gravity.TOP;
         layoutParamsOfView.topMargin = marginTopInPx;
     }
@@ -116,22 +124,14 @@ public class TimetableActivity extends AppCompatActivity {
         this.sizeOfAnHourInDp = sizeOfHourInDp;
     }
 
-    private View createNewTimetableEntry() {
+    private LinearLayout createNewTimetableEntry() {
 
-        View newView = new View(getBaseContext());
-        newView.setBackgroundColor(Color.BLACK);
+        LinearLayout newView = new LinearLayout(getBaseContext());
+        newView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
 
         return newView;
     }
 
-    private FrameLayout.LayoutParams createLayoutParamsForNewView() {
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT);
-
-        return params;
-    }
-
-    //TEST
     private LinearLayout.LayoutParams createLinearLayoutParamsForNewView() {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
