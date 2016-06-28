@@ -54,12 +54,7 @@ public class TimetableActivity extends AppCompatActivity {
 
         for (Lecture lecture : this.room.getListOfLectures()) {
 
-            LinearLayout newView = createNewTimetableEntry();
-
-            TextView textView = new TextView(this);
-            textView.setText("Grundlagen Informatik");
-            textView.setTextColor(Color.WHITE);
-            newView.addView(textView);
+            LinearLayout newView = createNewTimetableEntry(lecture);
 
             addViewToTimetable(newView);
 
@@ -124,10 +119,15 @@ public class TimetableActivity extends AppCompatActivity {
         this.sizeOfAnHourInDp = sizeOfHourInDp;
     }
 
-    private LinearLayout createNewTimetableEntry() {
+    private LinearLayout createNewTimetableEntry(Lecture lecture) {
 
         LinearLayout newView = new LinearLayout(getBaseContext());
         newView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+
+        TextView textView = new TextView(this);
+        textView.setText(lecture.getLectureName());
+        textView.setTextColor(Color.WHITE);
+        newView.addView(textView);
 
         return newView;
     }
