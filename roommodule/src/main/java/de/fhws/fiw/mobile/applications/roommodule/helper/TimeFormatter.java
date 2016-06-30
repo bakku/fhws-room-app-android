@@ -22,6 +22,10 @@ public class TimeFormatter {
         return calendar.getTimeInMillis();
     }
 
+    public static Calendar getCurrentTimeAsCalendar(){
+        return Calendar.getInstance();
+    }
+
     public static long tomorrowAsMilliseconds() {
         Calendar calendar = Calendar.getInstance();
 
