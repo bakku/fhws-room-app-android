@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import de.fhws.fiw.mobile.applications.roommodule.R;
 import de.fhws.fiw.mobile.applications.roommodule.adapter.PagerAdapter;
 import de.fhws.fiw.mobile.applications.roommodule.fragments.DetailInformationFragment;
+import de.fhws.fiw.mobile.applications.roommodule.fragments.TimetableFragment;
 import de.fhws.fiw.mobile.applications.roommodule.fragments.UsedRoomsFragment;
 import de.fhws.fiw.mobile.applications.roommodule.transformer.DepthPageTransformer;
 
@@ -39,6 +40,7 @@ public class DetailActivity extends AppCompatActivity {
         //pagerAdapter.addFragment(new ProfessorFragment(), "Professors");
         //pagerAdapter.addFragment(new UniversityPersonalFragment(), "Ordinary");
         pagerAdapter.addFragment(new DetailInformationFragment(), "RoomDetail");
+        pagerAdapter.addFragment(new TimetableFragment(), "Timetable");
         viewPager.setAdapter(pagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
