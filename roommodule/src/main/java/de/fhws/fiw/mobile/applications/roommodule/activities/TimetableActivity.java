@@ -26,7 +26,7 @@ public class TimetableActivity extends AppCompatActivity {
 
     private Room room;
 
-    private int sizeOfAnHourInDp;
+    private int sizeOfAnQuarterHourInDp;
 
     private final int TIMETABLE_BEGINS_AT_HOUR = 8;
 
@@ -40,7 +40,7 @@ public class TimetableActivity extends AppCompatActivity {
         setContentView(R.layout.timetable);
 
         this.timetable_layout = (FrameLayout) findViewById(R.id.timetable_framelayout_id);
-        saveSizeOfAnHourInDp();
+        setSizeOfAnQuarterHourInDp();
         loadRoomData();
         iterateOverLectures();
 
@@ -69,18 +69,23 @@ public class TimetableActivity extends AppCompatActivity {
 
         int marginTop = 0;
 
+        int startHourOfTimetable = this.TIMETABLE_BEGINS_AT_HOUR;
+
         int startHourOfLecture = TimeFormatter.getHourFromDate(lecture.getStartOfLecture());
 
         int startMinutesOfLecture = TimeFormatter.getMinutesFromDate(lecture.getStartOfLecture());
 
-        int differenceInHours = calculateDifference(startHourOfLecture, this.TIMETABLE_BEGINS_AT_HOUR);
+        int differenceInHours = calculateDifference(startHourOfLecture, startHourOfTimetable);
 
         while (differenceInHours > 0) {
-            marginTop += this.sizeOfAnHourInDp;
+            marginTop += this.sizeOfAnQuarterHourInDp * 4;
             differenceInHours--;
         }
 
-        //für viertelstunden noch machen
+        while(startMinutesOfLecture > 0){
+            marginTop += this.sizeOfAnQuarterHourInDp;
+            startMinutesOfLecture -= 15;
+        }
 
         return marginTop;
     }
@@ -113,20 +118,22 @@ public class TimetableActivity extends AppCompatActivity {
         this.timetable_layout.addView(newView, layoutParams);
     }
 
-    private void saveSizeOfAnHourInDp() {
-        int sizeOfHourInDp = (int) (getResources().getDimension(R.dimen.timetable_grid_hour_size) /
-                getResources().getDisplayMetrics().density);
-        this.sizeOfAnHourInDp = sizeOfHourInDp;
+    private void setSizeOfAnQuarterHourInDp() {
+        int sizeOfQuarterHourInDp = (int) ((getResources().getDimension(R.dimen.timetable_grid_hour_size) /
+                getResources().getDisplayMetrics().density) / 4);
+        this.sizeOfAnQuarterHourInDp = sizeOfQuarterHourInDp;
     }
 
     private LinearLayout createNewTimetableEntry(Lecture lecture) {
 
         LinearLayout newView = new LinearLayout(getBaseContext());
         newView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+        newView.setElevation(8);
 
         TextView textView = new TextView(this);
         textView.setText(lecture.getLectureName());
         textView.setTextColor(Color.WHITE);
+
         newView.addView(textView);
 
         return newView;

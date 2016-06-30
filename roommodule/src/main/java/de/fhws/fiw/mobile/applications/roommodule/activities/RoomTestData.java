@@ -34,8 +34,8 @@ public class RoomTestData {
 
         Lecture lectureTwo = new Lecture();
         lectureTwo.setLectureName("Zweite Vorlesung");
-        lectureTwo.setStartOfLecture(new GregorianCalendar(2016, 01, 01, 10, 30).getTime());
-        lectureTwo.setEndOfLecture(new GregorianCalendar(2016, 01, 01, 11, 0).getTime());
+        lectureTwo.setStartOfLecture(new GregorianCalendar(2016, 01, 01, 10, 45).getTime());
+        lectureTwo.setEndOfLecture(new GregorianCalendar(2016, 01, 01, 12, 15).getTime());
 
         Lecture lectureThree = new Lecture();
         lectureThree.setLectureName("Dritte Vorlesung");
