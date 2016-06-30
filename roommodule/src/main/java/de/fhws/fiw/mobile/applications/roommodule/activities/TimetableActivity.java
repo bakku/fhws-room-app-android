@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import de.fhws.fiw.mobile.applications.roommodule.R;
@@ -29,6 +30,8 @@ public class TimetableActivity extends AppCompatActivity {
 
     private int sizeOfAnQuarterHourInDp;
 
+    private int sizeOfFiveMinutesInDp;
+
     private final int TIMETABLE_BEGINS_AT_HOUR = 8;
 
     private final int LEFT_MARGIN_OF_TIMETABLE_ENTRY_IN_DP = 64;
@@ -42,6 +45,7 @@ public class TimetableActivity extends AppCompatActivity {
 
         this.timetable_layout = (FrameLayout) findViewById(R.id.timetable_framelayout_id);
         setSizeOfAnQuarterHourInDp();
+        setSizeOfFiveMinutesInDp();
         loadRoomData();
         iterateOverLectures();
 
@@ -52,6 +56,8 @@ public class TimetableActivity extends AppCompatActivity {
     }
 
     private void iterateOverLectures() {
+
+        displayCurrentTimeLine();
 
         for (Lecture lecture : this.room.getListOfLectures()) {
 
@@ -157,6 +163,12 @@ public class TimetableActivity extends AppCompatActivity {
         this.sizeOfAnQuarterHourInDp = sizeOfQuarterHourInDp;
     }
 
+    private void setSizeOfFiveMinutesInDp() {
+        int sizeOfFiveMinutesInDp = (int) ((getResources().getDimension(R.dimen.timetable_grid_hour_size) /
+                getResources().getDisplayMetrics().density) / 12);
+        this.sizeOfFiveMinutesInDp = sizeOfFiveMinutesInDp;
+    }
+
     private LinearLayout createNewTimetableEntry(Lecture lecture) {
 
         LinearLayout newView = new LinearLayout(getBaseContext());
@@ -177,6 +189,42 @@ public class TimetableActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams.WRAP_CONTENT);
 
         return params;
+    }
+
+    private void displayCurrentTimeLine(){
+        Calendar currentTime = TimeFormatter.getCurrentTimeAsCalendar();
+
+        int currentHour = currentTime.get(Calendar.HOUR_OF_DAY);
+
+        int currentMinutes = currentTime.get(Calendar.MINUTE);
+
+        int startHourOfTimetable = this.TIMETABLE_BEGINS_AT_HOUR;
+
+        int differenceInHours = calculateDifference(currentHour, startHourOfTimetable);
+
+        int marginTopDp = 0;
+
+        while(differenceInHours > 0){
+            marginTopDp += this.sizeOfAnQuarterHourInDp * 4;
+            differenceInHours--;
+        }
+
+        while(currentMinutes > 4){
+            marginTopDp += this.sizeOfFiveMinutesInDp;
+            currentMinutes -= 5;
+        }
+
+        //Neues layout
+        LinearLayout newView = new LinearLayout(getBaseContext());
+        newView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        newView.setElevation(8);
+
+        addViewToTimetable(newView);
+
+        FrameLayout.LayoutParams layoutParamsOfView = (FrameLayout.LayoutParams) newView.getLayoutParams();
+        layoutParamsOfView.height = DpPixelConverter.dpToPixels(this, 4);
+        layoutParamsOfView.width = DpPixelConverter.dpToPixels(this, (int) getScreenWidthInDp());
+        layoutParamsOfView.topMargin = DpPixelConverter.dpToPixels(this, marginTopDp);
     }
 
     private int getHourOfDate(Date date) {

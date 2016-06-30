@@ -9,12 +9,4 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <include
-        layout="@layout/current_time_line"
-        android:id="@+id/current_time_line_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp" />
-
-
 </FrameLayout>
