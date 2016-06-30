@@ -3,6 +3,7 @@ package de.fhws.fiw.mobile.applications.roommodule.activities;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -30,9 +31,9 @@ public class TimetableActivity extends AppCompatActivity {
 
     private final int TIMETABLE_BEGINS_AT_HOUR = 8;
 
-    private final int WIDTH_OF_TIMETABLE_ENTRY = 240;
+    private final int LEFT_MARGIN_OF_TIMETABLE_ENTRY_IN_DP = 64;
 
-    private final int LEFT_MARGIN_OF_TIMETABLE_ENTRY = 64;
+    private final int RIGHT_MARGIN_OF_TIMETABLE_ENTRY_IN_DP = 16;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,7 +83,7 @@ public class TimetableActivity extends AppCompatActivity {
             differenceInHours--;
         }
 
-        while(startMinutesOfLecture > 0){
+        while (startMinutesOfLecture > 0) {
             marginTop += this.sizeOfAnQuarterHourInDp;
             startMinutesOfLecture -= 15;
         }
@@ -94,15 +95,23 @@ public class TimetableActivity extends AppCompatActivity {
         return startHourOfLecture - timetableBeginsAtHour;
     }
 
+    private float getScreenWidthInDp() {
+        DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+
+        return dpWidth;
+    }
+
     private void addMarginTopToView(View newView, int marginTop) {
 
         int marginTopInPx = DpPixelConverter.dpToPixels(this, marginTop);
 
-        int widthInPx = DpPixelConverter.dpToPixels(this, WIDTH_OF_TIMETABLE_ENTRY);
+        int widthInDp = (int) getScreenWidthInDp() - LEFT_MARGIN_OF_TIMETABLE_ENTRY_IN_DP - RIGHT_MARGIN_OF_TIMETABLE_ENTRY_IN_DP;
+        int widthInPx = DpPixelConverter.dpToPixels(this, widthInDp);
 
         int heightInPx = DpPixelConverter.dpToPixels(this, 40); //TODO
 
-        int leftMarginInPx = DpPixelConverter.dpToPixels(this, LEFT_MARGIN_OF_TIMETABLE_ENTRY);
+        int leftMarginInPx = DpPixelConverter.dpToPixels(this, LEFT_MARGIN_OF_TIMETABLE_ENTRY_IN_DP);
 
         FrameLayout.LayoutParams layoutParamsOfView = (FrameLayout.LayoutParams) newView.getLayoutParams();
         layoutParamsOfView.leftMargin = leftMarginInPx;
