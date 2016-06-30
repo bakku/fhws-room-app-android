@@ -59,16 +59,14 @@ public class TimetableActivity extends AppCompatActivity {
 
             addViewToTimetable(newView);
 
-            int marginTop = calculateMarginTop(lecture);
-
-            addMarginTopToView(newView, marginTop);
+            addMarginTopToView(newView, lecture);
 
         }
     }
 
     private int calculateMarginTop(Lecture lecture) {
 
-        int marginTop = 0;
+        int marginTopDp = 0;
 
         int startHourOfTimetable = this.TIMETABLE_BEGINS_AT_HOUR;
 
@@ -79,16 +77,42 @@ public class TimetableActivity extends AppCompatActivity {
         int differenceInHours = calculateDifference(startHourOfLecture, startHourOfTimetable);
 
         while (differenceInHours > 0) {
-            marginTop += this.sizeOfAnQuarterHourInDp * 4;
+            marginTopDp += this.sizeOfAnQuarterHourInDp * 4;
             differenceInHours--;
         }
 
         while (startMinutesOfLecture > 0) {
-            marginTop += this.sizeOfAnQuarterHourInDp;
+            marginTopDp += this.sizeOfAnQuarterHourInDp;
             startMinutesOfLecture -= 15;
         }
 
-        return marginTop;
+        return marginTopDp;
+    }
+
+    private int calculateHeightOfTimeTableEntry(Lecture lecture){
+
+        int heightDp = 0;
+
+        int startHourOfLecture = TimeFormatter.getHourFromDate(lecture.getStartOfLecture());
+
+        int startMinutesOfLecture = TimeFormatter.getMinutesFromDate(lecture.getStartOfLecture());
+
+        int endHourOfLecture = TimeFormatter.getHourFromDate(lecture.getEndOfLecture());
+
+        int endMinutesOfLecture = TimeFormatter.getMinutesFromDate(lecture.getEndOfLecture());
+
+        while(!((startHourOfLecture == endHourOfLecture) && (startMinutesOfLecture == endMinutesOfLecture))){
+
+            startMinutesOfLecture = (startMinutesOfLecture + 15) % 60;
+
+            if(startMinutesOfLecture == 0){
+                startHourOfLecture++;
+            }
+
+            heightDp += this.sizeOfAnQuarterHourInDp;
+        }
+
+        return heightDp;
     }
 
     private int calculateDifference(int startHourOfLecture, int timetableBeginsAtHour) {
@@ -102,14 +126,14 @@ public class TimetableActivity extends AppCompatActivity {
         return dpWidth;
     }
 
-    private void addMarginTopToView(View newView, int marginTop) {
+    private void addMarginTopToView(View newView, Lecture lecture) {
 
-        int marginTopInPx = DpPixelConverter.dpToPixels(this, marginTop);
+        int marginTopInPx = DpPixelConverter.dpToPixels(this, calculateMarginTop(lecture));
 
         int widthInDp = (int) getScreenWidthInDp() - LEFT_MARGIN_OF_TIMETABLE_ENTRY_IN_DP - RIGHT_MARGIN_OF_TIMETABLE_ENTRY_IN_DP;
         int widthInPx = DpPixelConverter.dpToPixels(this, widthInDp);
 
-        int heightInPx = DpPixelConverter.dpToPixels(this, 40); //TODO
+        int heightInPx = DpPixelConverter.dpToPixels(this, calculateHeightOfTimeTableEntry(lecture) );
 
         int leftMarginInPx = DpPixelConverter.dpToPixels(this, LEFT_MARGIN_OF_TIMETABLE_ENTRY_IN_DP);
 
