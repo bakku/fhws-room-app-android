@@ -192,6 +192,15 @@ public class TimetableActivity extends AppCompatActivity {
     }
 
     private void displayCurrentTimeLine(){
+
+        LinearLayout timelineLayout = createTimeline();
+
+        addViewToTimetable(timelineLayout);
+
+        setLayoutParametersOfTimeline(timelineLayout);
+    }
+
+    private int calculateMarginTopOfTimeline(){
         Calendar currentTime = TimeFormatter.getCurrentTimeAsCalendar();
 
         int currentHour = currentTime.get(Calendar.HOUR_OF_DAY);
@@ -214,14 +223,20 @@ public class TimetableActivity extends AppCompatActivity {
             currentMinutes -= 5;
         }
 
-        //Neues layout
+        return marginTopDp;
+    }
+
+    private LinearLayout createTimeline() {
         LinearLayout newView = new LinearLayout(getBaseContext());
         newView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         newView.setElevation(8);
+        return newView;
+    }
 
-        addViewToTimetable(newView);
+    private void setLayoutParametersOfTimeline(LinearLayout timelineLayout){
+        int marginTopDp = calculateMarginTopOfTimeline();
 
-        FrameLayout.LayoutParams layoutParamsOfView = (FrameLayout.LayoutParams) newView.getLayoutParams();
+        FrameLayout.LayoutParams layoutParamsOfView = (FrameLayout.LayoutParams) timelineLayout.getLayoutParams();
         layoutParamsOfView.height = DpPixelConverter.dpToPixels(this, 4);
         layoutParamsOfView.width = DpPixelConverter.dpToPixels(this, (int) getScreenWidthInDp());
         layoutParamsOfView.topMargin = DpPixelConverter.dpToPixels(this, marginTopDp);
