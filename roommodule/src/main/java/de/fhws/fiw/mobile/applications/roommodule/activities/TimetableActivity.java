@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -94,7 +95,7 @@ public class TimetableActivity extends AppCompatActivity {
     private LinearLayout createTimeline() {
         LinearLayout newView = new LinearLayout(getBaseContext());
         newView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        newView.setElevation(8);
+        newView.setElevation(4);
         return newView;
     }
 
@@ -165,7 +166,15 @@ public class TimetableActivity extends AppCompatActivity {
 
         newView.addView(textView);
 
+        setLayoutParametersOfTextView(textView);
+
         return newView;
+    }
+
+    private void setLayoutParametersOfTextView(View textView){
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(16, 8, 0, 0);
+        textView.setLayoutParams(layoutParams);
     }
 
     private void setLayoutParametersOfTimetableEntry(View newView, Lecture lecture) {
