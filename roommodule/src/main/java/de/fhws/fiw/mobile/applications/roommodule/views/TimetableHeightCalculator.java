@@ -1,4 +1,4 @@
-package de.fhws.fiw.mobile.applications.roommodule.activities;
+package de.fhws.fiw.mobile.applications.roommodule.views;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
@@ -7,6 +7,7 @@ import java.util.Calendar;
 
 import de.fhws.fiw.mobile.applications.roommodule.helper.TimeFormatter;
 import de.fhws.fiw.mobile.applications.roommodule.models.Lecture;
+import de.fhws.fiw.mobile.applications.roommodule.views.TimetableConfig;
 
 /**
  * Created by Patrick Müller on 01.07.2016.

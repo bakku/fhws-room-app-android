@@ -1,21 +1,19 @@
-package de.fhws.fiw.mobile.applications.roommodule.activities;
+package de.fhws.fiw.mobile.applications.roommodule.views;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
-
-import java.util.Calendar;
 
 import de.fhws.fiw.mobile.applications.roommodule.R;
 import de.fhws.fiw.mobile.applications.roommodule.helper.DpPixelConverter;
 import de.fhws.fiw.mobile.applications.roommodule.models.Lecture;
 import de.fhws.fiw.mobile.applications.roommodule.models.Room;
+import de.fhws.fiw.mobile.applications.roommodule.views.TimetableConfig;
+import de.fhws.fiw.mobile.applications.roommodule.views.TimetableHeightCalculator;
 
 /**
  * Created by Patrick Müller on 30.06.2016.
@@ -26,12 +24,7 @@ public class TimetableView extends View {
 
     private Context context;
 
-    private int sizeOfAnQuarterHourInDp;
-
-    private int sizeOfFiveMinutesInDp;
-
     private Room room;
-
 
     public TimetableView(Context context, AttributeSet attributeSet) {
 
@@ -87,26 +80,6 @@ public class TimetableView extends View {
         drawCurrentTimeline(canvas);
         drawLectures(canvas);
         drawLectureTitles(canvas);
-//
-//        canvas.drawCircle(50, 50, 20, drawPaint);
-//        drawPaint.setColor(Color.GREEN);
-//        canvas.drawCircle(50, 150, 20, drawPaint);
-//        drawPaint.setColor(Color.BLUE);
-//        canvas.drawCircle(50, 250, 20, drawPaint);
-//        canvas.drawCircle(50, 800, 20, drawPaint);
-//        canvas.drawCircle(50, 1200, 20, drawPaint);
-//        canvas.drawCircle(50, 1500, 20, drawPaint);
-//
-//        drawPaint.setStyle(Paint.Style.FILL);
-//        drawPaint.setColor(Color.MAGENTA);
-//
-//        drawPaint.setShadowLayer(10, 3, 3, Color.GRAY);
-//
-//        canvas.drawRect(new Rect(10, 10, 300, 300), drawPaint);
-//        drawPaint.setColor(Color.BLACK);
-//        drawPaint.setTextSize(30);
-//        //50 ist linke untere ecke
-//        canvas.drawText("blob", 40, 50, drawPaint);
     }
 
     private void drawTimeLines(Canvas canvas) {
@@ -192,11 +165,12 @@ public class TimetableView extends View {
 
     private void preparePaintForCurrentTimeline(){
         this.drawPaint.setColor(getResources().getColor(R.color.colorPrimary));
-        this.drawPaint.setShadowLayer(2, 2, 2, Color.GRAY);
+        this.drawPaint.setShadowLayer(1, 1, 1, Color.GRAY);
     }
 
     private void preparePaintForTimeNumbers() {
         this.drawPaint.setColor(Color.GRAY);
+        this.drawPaint.setTextAlign(Paint.Align.LEFT);
         this.drawPaint.setTextSize(toPx(TimetableConfig.TIMETABLE_TIME_NUMBERS_TEXT_SIZE_IN_DP));
         this.drawPaint.setShadowLayer(0, 0, 0, Color.GRAY);
     }

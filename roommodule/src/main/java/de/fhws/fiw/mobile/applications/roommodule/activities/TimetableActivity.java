@@ -12,13 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import de.fhws.fiw.mobile.applications.roommodule.R;
 import de.fhws.fiw.mobile.applications.roommodule.helper.DpPixelConverter;
 import de.fhws.fiw.mobile.applications.roommodule.helper.TimeFormatter;
 import de.fhws.fiw.mobile.applications.roommodule.models.Lecture;
 import de.fhws.fiw.mobile.applications.roommodule.models.Room;
+import de.fhws.fiw.mobile.applications.roommodule.views.RoomTestData;
 
 /**
  * Created by Patrick Müller on 26.05.2016.

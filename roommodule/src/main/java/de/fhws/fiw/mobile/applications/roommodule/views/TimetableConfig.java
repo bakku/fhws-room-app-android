@@ -1,4 +1,4 @@
-package de.fhws.fiw.mobile.applications.roommodule.activities;
+package de.fhws.fiw.mobile.applications.roommodule.views;
 
 /**
  * Created by Patrick Müller on 01.07.2016.
