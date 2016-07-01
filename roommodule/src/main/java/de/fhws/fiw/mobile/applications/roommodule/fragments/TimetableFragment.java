@@ -31,7 +31,7 @@ import de.fhws.fiw.mobile.applications.roommodule.models.Room;
  */
 public class TimetableFragment extends Fragment {
 
-    private FrameLayout rootView;
+    private LinearLayout rootView;
 
     private Room room;
 
@@ -50,12 +50,17 @@ public class TimetableFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
 
-        this.rootView = (FrameLayout) inflater.inflate(R.layout.drawed_timetable, parent, false);
+        this.rootView = (LinearLayout) inflater.inflate(R.layout.drawed_timetable, parent, false);
 
         TimetableView timetableView = new TimetableView(getContext(), null);
 
-        ScrollView scrollView = (ScrollView)this.rootView.findViewById(R.id.scrollview_drawed_timetable);
-        scrollView.addView(new TimetableView(getContext(), null));
+        //works
+//        ScrollView scrollView = (ScrollView) this.rootView.findViewById(R.id.scrollview_drawed_timetable);
+//        scrollView.addView(new TimetableView(getContext(), null));
+
+        LinearLayout linearLayout = (LinearLayout) this.rootView.findViewById(R.id.scrollview_content);
+        linearLayout.addView(new TimetableView(getContext(), null));
+
 
 //        setSizeOfAnQuarterHourInDp();
 //        setSizeOfFiveMinutesInDp();
@@ -100,7 +105,7 @@ public class TimetableFragment extends Fragment {
         }
     }
 
-    private void displayCurrentTimeLine(){
+    private void displayCurrentTimeLine() {
 
         LinearLayout timelineLayout = createTimeline();
 
@@ -129,7 +134,7 @@ public class TimetableFragment extends Fragment {
         return params;
     }
 
-    private void setLayoutParametersOfTimeline(LinearLayout timelineLayout){
+    private void setLayoutParametersOfTimeline(LinearLayout timelineLayout) {
         int marginTopDp = calculateMarginTopOfTimeline();
 
         FrameLayout.LayoutParams layoutParamsOfView = (FrameLayout.LayoutParams) timelineLayout.getLayoutParams();
@@ -138,7 +143,7 @@ public class TimetableFragment extends Fragment {
         layoutParamsOfView.topMargin = DpPixelConverter.dpToPixels(this.getActivity(), marginTopDp);
     }
 
-    private int calculateMarginTopOfTimeline(){
+    private int calculateMarginTopOfTimeline() {
         Calendar currentTime = TimeFormatter.getCurrentTimeAsCalendar();
 
         int currentHour = currentTime.get(Calendar.HOUR_OF_DAY);
@@ -151,12 +156,12 @@ public class TimetableFragment extends Fragment {
 
         int marginTopDp = TIMETABLE_MARGIN_TOP_DP;
 
-        while(differenceInHours > 0){
+        while (differenceInHours > 0) {
             marginTopDp += this.sizeOfAnQuarterHourInDp * 4;
             differenceInHours--;
         }
 
-        while(currentMinutes > 4){
+        while (currentMinutes > 4) {
             marginTopDp += this.sizeOfFiveMinutesInDp;
             currentMinutes -= 5;
         }
@@ -188,7 +193,7 @@ public class TimetableFragment extends Fragment {
         return newView;
     }
 
-    private void setLayoutParametersOfTextView(View textView){
+    private void setLayoutParametersOfTextView(View textView) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(16, 8, 0, 0);
         textView.setLayoutParams(layoutParams);
@@ -201,7 +206,7 @@ public class TimetableFragment extends Fragment {
         int widthInDp = (int) getScreenWidthInDp() - LEFT_MARGIN_OF_TIMETABLE_ENTRY_IN_DP - RIGHT_MARGIN_OF_TIMETABLE_ENTRY_IN_DP;
         int widthInPx = DpPixelConverter.dpToPixels(this.getActivity(), widthInDp);
 
-        int heightInPx = DpPixelConverter.dpToPixels(this.getActivity(), calculateHeightOfTimeTableEntry(lecture) );
+        int heightInPx = DpPixelConverter.dpToPixels(this.getActivity(), calculateHeightOfTimeTableEntry(lecture));
 
         int leftMarginInPx = DpPixelConverter.dpToPixels(this.getActivity(), LEFT_MARGIN_OF_TIMETABLE_ENTRY_IN_DP);
 
@@ -242,7 +247,7 @@ public class TimetableFragment extends Fragment {
         return startHourOfLecture - timetableBeginsAtHour;
     }
 
-    private int calculateHeightOfTimeTableEntry(Lecture lecture){
+    private int calculateHeightOfTimeTableEntry(Lecture lecture) {
 
         int heightDp = 0;
 
@@ -254,11 +259,11 @@ public class TimetableFragment extends Fragment {
 
         int endMinutesOfLecture = TimeFormatter.getMinutesFromDate(lecture.getEndOfLecture());
 
-        while(!((startHourOfLecture == endHourOfLecture) && (startMinutesOfLecture == endMinutesOfLecture))){
+        while (!((startHourOfLecture == endHourOfLecture) && (startMinutesOfLecture == endMinutesOfLecture))) {
 
             startMinutesOfLecture = (startMinutesOfLecture + 15) % 60;
 
-            if(startMinutesOfLecture == 0){
+            if (startMinutesOfLecture == 0) {
                 startHourOfLecture++;
             }
 

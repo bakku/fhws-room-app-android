@@ -1,6 +1,7 @@
 package de.fhws.fiw.mobile.applications.roommodule.activities;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -26,6 +27,8 @@ public class TimetableView extends View {
     private int sizeOfFiveMinutesInDp;
 
     private Room room;
+
+    private int h;
 
     public TimetableView(Context context, AttributeSet attributeSet) {
 
@@ -77,12 +80,15 @@ public class TimetableView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
         DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
         int screenWidth = displayMetrics.widthPixels;
         int screenHeight = displayMetrics.heightPixels;
-
         setMeasuredDimension(screenWidth, screenHeight);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
     }
 
     @Override
@@ -90,7 +96,7 @@ public class TimetableView extends View {
         super.onDraw(canvas);
 
         drawTimeLines(canvas);
-//        drawTimeNumbers();
+        drawTimeNumbers(canvas);
 //        drawLectures();
 //        drawLectureTitles();
 //
@@ -143,6 +149,7 @@ public class TimetableView extends View {
     private void preparePaintForTimeLines(){
         this.drawPaint.setColor(Color.GRAY);
         this.drawPaint.setStrokeWidth(2);
+        this.drawPaint.setStyle(Paint.Style.FILL);
     }
 
     private float getScreenWidthInDp() {
@@ -154,5 +161,36 @@ public class TimetableView extends View {
 
     private int toPx(float dpValue){
         return DpPixelConverter.dpToPixels(this.context, dpValue);
+    }
+
+    private void drawTimeNumbers(Canvas canvas){
+
+        preparePaintForTimeNumbers();
+
+        int timetableBeginsAtHour = TimetableConfig.TIMETABLE_BEGINS_AT_HOUR;
+
+        int timetableEndsAtHour = TimetableConfig.TIMETABLE_END_AT_HOUR;
+
+        String time;
+
+        int yCurrent = TimetableConfig.TIMETABLE_MARGIN_TOP_IN_DP;
+
+        for(int currentTime = timetableBeginsAtHour; currentTime < timetableEndsAtHour; currentTime++){
+
+            time = currentTime + ":00";
+
+            canvas.drawText(time,
+                    toPx(TimetableConfig.TIMETABLE_LEFT_MARGIN_IN_DP),
+                    toPx(yCurrent + TimetableConfig.TIMETABLE_TIME_NUMBERS_TEXT_SIZE_IN_DP),
+                    this.drawPaint);
+
+            yCurrent += TimetableConfig.TIMETABLE_DISTANCE_BETWEEN_TWO_LINES_IN_DP;
+        }
+
+    }
+
+    private void preparePaintForTimeNumbers(){
+        this.drawPaint.setColor(Color.GRAY);
+        this.drawPaint.setTextSize(toPx(TimetableConfig.TIMETABLE_TIME_NUMBERS_TEXT_SIZE_IN_DP));
     }
 }
