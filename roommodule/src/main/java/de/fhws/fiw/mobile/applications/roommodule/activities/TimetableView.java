@@ -10,6 +10,8 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
 
+import java.util.Calendar;
+
 import de.fhws.fiw.mobile.applications.roommodule.R;
 import de.fhws.fiw.mobile.applications.roommodule.helper.DpPixelConverter;
 import de.fhws.fiw.mobile.applications.roommodule.models.Lecture;
@@ -82,8 +84,9 @@ public class TimetableView extends View {
 
         drawTimeLines(canvas);
         drawTimeNumbers(canvas);
+        drawCurrentTimeline(canvas);
         drawLectures(canvas);
-//        drawLectureTitles();
+        drawLectureTitles(canvas);
 //
 //        canvas.drawCircle(50, 50, 20, drawPaint);
 //        drawPaint.setColor(Color.GREEN);
@@ -173,6 +176,25 @@ public class TimetableView extends View {
         }
     }
 
+    private void drawCurrentTimeline(Canvas canvas){
+
+        preparePaintForCurrentTimeline();
+
+        int yCoordinateDp = new TimetableHeightCalculator(this.context).calculateMarginTopOfTimeline();
+
+        canvas.drawRect(
+                0,
+                toPx(yCoordinateDp),
+                toPx(getScreenWidthInDp()),
+                toPx(yCoordinateDp + TimetableConfig.TIMETABLE_CURRENT_TIMELINE_HEIGHT_IN_DP),
+                this.drawPaint);
+    }
+
+    private void preparePaintForCurrentTimeline(){
+        this.drawPaint.setColor(getResources().getColor(R.color.colorPrimary));
+        this.drawPaint.setShadowLayer(2, 2, 2, Color.GRAY);
+    }
+
     private void preparePaintForTimeNumbers() {
         this.drawPaint.setColor(Color.GRAY);
         this.drawPaint.setTextSize(toPx(TimetableConfig.TIMETABLE_TIME_NUMBERS_TEXT_SIZE_IN_DP));
@@ -205,5 +227,33 @@ public class TimetableView extends View {
     private void preparePaintForLectures() {
         this.drawPaint.setColor(getResources().getColor(R.color.colorPrimaryDark));
         this.drawPaint.setShadowLayer(10, 3, 3, Color.GRAY);
+    }
+
+    private void drawLectureTitles(Canvas canvas) {
+
+        preparePaintForLectureTitles();
+
+        for (Lecture lecture : this.room.getListOfLectures()) {
+
+            int yCoordinate = new TimetableHeightCalculator(this.context).calculateMarginTopOfTimetableEntry(lecture);
+
+            int xCoordinate = (int) ((((getScreenWidthInDp()
+                    - TimetableConfig.TIMETABLE_RIGHT_MARGIN_IN_DP)
+                    - TimetableConfig.LEFT_MARGIN_OF_TIMETABLE_ENTRY_IN_DP) / 2)
+                    + TimetableConfig.LEFT_MARGIN_OF_TIMETABLE_ENTRY_IN_DP);
+
+            canvas.drawText(
+                    lecture.getLectureName(),
+                    toPx(xCoordinate),
+                    toPx(yCoordinate + TimetableConfig.TIMETABLE_LECTURE_TITLES_TEXTSIZE_IN_DP + TimetableConfig.TIMETABLE_LECTURE_TITLE_MARGIN_IN_DP),
+                    this.drawPaint);
+        }
+    }
+
+    private void preparePaintForLectureTitles() {
+        this.drawPaint.setColor(Color.WHITE);
+        this.drawPaint.setTextSize(toPx(TimetableConfig.TIMETABLE_LECTURE_TITLES_TEXTSIZE_IN_DP));
+        this.drawPaint.setTextAlign(Paint.Align.CENTER);
+        this.drawPaint.setShadowLayer(0, 0, 0, Color.GRAY);
     }
 }

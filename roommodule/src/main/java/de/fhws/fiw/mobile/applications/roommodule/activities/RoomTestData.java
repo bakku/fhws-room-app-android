@@ -39,8 +39,8 @@ public class RoomTestData {
 
         Lecture lectureThree = new Lecture();
         lectureThree.setLectureName("Dritte Vorlesung");
-        lectureThree.setStartOfLecture(new GregorianCalendar(2016, 01, 01, 15, 30).getTime());
-        lectureThree.setEndOfLecture(new GregorianCalendar(2016, 01, 01, 18, 30).getTime());
+        lectureThree.setStartOfLecture(new GregorianCalendar(2016, 01, 01, 18, 30).getTime());
+        lectureThree.setEndOfLecture(new GregorianCalendar(2016, 01, 01, 20, 30).getTime());
 
         List<Lecture> listOfLectures = new LinkedList<>();
         listOfLectures.add(lectureOne);

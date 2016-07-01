@@ -38,7 +38,7 @@ public class TimetableHeightCalculator {
         this.sizeOfFiveMinutesInDp = sizeOfFiveMinutesInDp;
     }
 
-    private int calculateMarginTopOfTimeline() {
+    public int calculateMarginTopOfTimeline() {
         Calendar currentTime = TimeFormatter.getCurrentTimeAsCalendar();
 
         int currentHour = currentTime.get(Calendar.HOUR_OF_DAY);
