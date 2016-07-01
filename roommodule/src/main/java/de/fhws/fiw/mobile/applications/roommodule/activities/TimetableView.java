@@ -123,17 +123,20 @@ public class TimetableView extends View {
 
         int timetableEndsAtHour = TimetableConfig.TIMETABLE_END_AT_HOUR;
 
-//        while(timetableBeginsAtHour > timetableEndsAtHour){
+        int yCurrent = TimetableConfig.TIMETABLE_MARGIN_TOP_IN_DP;
+
+        while(timetableBeginsAtHour < timetableEndsAtHour){
             canvas.drawLine(
                     toPx(TimetableConfig.TIMETABLE_LEFT_MARGIN_IN_DP),
-                    toPx(TimetableConfig.TIMETABLE_MARGIN_TOP_IN_DP),
+                    toPx(yCurrent),
                     toPx(getScreenWidthInDp() - TimetableConfig.TIMETABLE_RIGHT_MARGIN_IN_DP),
-                    toPx(TimetableConfig.TIMETABLE_MARGIN_TOP_IN_DP),
+                    toPx(yCurrent),
                     this.drawPaint
             );
 
             timetableBeginsAtHour++;
-//        }
+            yCurrent += TimetableConfig.TIMETABLE_DISTANCE_BETWEEN_TWO_LINES_IN_DP;
+        }
 
     }
 
