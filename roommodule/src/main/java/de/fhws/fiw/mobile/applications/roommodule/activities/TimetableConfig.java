@@ -10,9 +10,11 @@ import de.fhws.fiw.mobile.applications.roommodule.R;
 /**
  * Created by Patrick Müller on 01.07.2016.
  */
-public class TimetableViewConfig {
+public interface TimetableConfig {
 
     public final int TIMETABLE_BEGINS_AT_HOUR = 8;
+
+    public final int TIMETABLE_END_AT_HOUR = 19;
 
     public final int TIMETABLE_DISTANCE_BETWEEN_TWO_LINES_IN_DP = 40;
 
@@ -25,7 +27,4 @@ public class TimetableViewConfig {
     public final int LEFT_MARGIN_OF_TIMETABLE_ENTRY_IN_DP = 64;
 
     public final int RIGHT_MARGIN_OF_TIMETABLE_ENTRY_IN_DP = 16;
-
-    public TimetableViewConfig() {
-    }
 }
