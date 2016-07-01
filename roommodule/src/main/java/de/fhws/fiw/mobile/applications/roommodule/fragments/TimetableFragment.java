@@ -3,6 +3,7 @@ package de.fhws.fiw.mobile.applications.roommodule.fragments;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -12,12 +13,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.Calendar;
 
 import de.fhws.fiw.mobile.applications.roommodule.R;
 import de.fhws.fiw.mobile.applications.roommodule.activities.RoomTestData;
+import de.fhws.fiw.mobile.applications.roommodule.activities.TimetableView;
 import de.fhws.fiw.mobile.applications.roommodule.helper.DpPixelConverter;
 import de.fhws.fiw.mobile.applications.roommodule.helper.TimeFormatter;
 import de.fhws.fiw.mobile.applications.roommodule.models.Lecture;
@@ -38,6 +41,8 @@ public class TimetableFragment extends Fragment {
 
     private final int TIMETABLE_BEGINS_AT_HOUR = 8;
 
+    private final int TIMETABLE_MARGIN_TOP_DP = 16;
+
     private final int LEFT_MARGIN_OF_TIMETABLE_ENTRY_IN_DP = 64;
 
     private final int RIGHT_MARGIN_OF_TIMETABLE_ENTRY_IN_DP = 16;
@@ -45,12 +50,22 @@ public class TimetableFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
 
-        this.rootView = (FrameLayout) inflater.inflate(R.layout.timetable, parent, false);
+        this.rootView = (FrameLayout) inflater.inflate(R.layout.drawed_timetable, parent, false);
 
-        setSizeOfAnQuarterHourInDp();
-        setSizeOfFiveMinutesInDp();
-        loadRoomData();
-        iterateOverLectures();
+        TimetableView timetableView = new TimetableView(getContext(), null);
+        timetableView.setText("Hallo");
+
+        ScrollView scrollView = (ScrollView)this.rootView.findViewById(R.id.scrollview_drawed_timetable);
+        scrollView.addView(new TimetableView(getContext(), null));
+
+//        setSizeOfAnQuarterHourInDp();
+//        setSizeOfFiveMinutesInDp();
+//        loadRoomData();
+//        iterateOverLectures();
+
+//        getFragmentManager().beginTransaction()
+//                .add(R.id.timetable_entry_fragment, new TimetableFragment())
+//                .commit();
 
         return this.rootView;
     }
@@ -135,7 +150,7 @@ public class TimetableFragment extends Fragment {
 
         int differenceInHours = calculateDifference(currentHour, startHourOfTimetable);
 
-        int marginTopDp = 0;
+        int marginTopDp = TIMETABLE_MARGIN_TOP_DP;
 
         while(differenceInHours > 0){
             marginTopDp += this.sizeOfAnQuarterHourInDp * 4;
@@ -201,7 +216,7 @@ public class TimetableFragment extends Fragment {
 
     private int calculateMarginTopOfTimetableEntry(Lecture lecture) {
 
-        int marginTopDp = 0;
+        int marginTopDp = TIMETABLE_MARGIN_TOP_DP;
 
         int startHourOfTimetable = this.TIMETABLE_BEGINS_AT_HOUR;
 

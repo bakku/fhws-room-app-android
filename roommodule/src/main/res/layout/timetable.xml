@@ -4,9 +4,16 @@
     android:layout_height="match_parent"
     android:id="@+id/timetable_framelayout_id">
 
-    <include
-        layout="@layout/timetable_grid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollview">
+
+        <include
+            layout="@layout/timetable_grid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </ScrollView>
 
 </FrameLayout>
