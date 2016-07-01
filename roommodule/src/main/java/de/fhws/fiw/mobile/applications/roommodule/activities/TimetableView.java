@@ -1,10 +1,12 @@
 package de.fhws.fiw.mobile.applications.roommodule.activities;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Shader;
 import android.support.annotation.AttrRes;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -29,6 +31,7 @@ public class TimetableView extends View {
 
     public TimetableView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
+        this.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         setFocusable(true);
         setFocusableInTouchMode(true);
         setupPaint();
@@ -78,6 +81,15 @@ public class TimetableView extends View {
 
         drawPaint.setStyle(Paint.Style.FILL);
         drawPaint.setColor(Color.MAGENTA);
+
+//        drawPaint.setShadowLayer(10.0f, 10.0f, 10.0f, 0xFF000000);
+        drawPaint.setShadowLayer(10, 3, 3, Color.GRAY);
+//
+//
+//        Bitmap bmp = Bitmap.createBitmap(40, 40, Bitmap.Config.ARGB_8888); // this creates a MUTABLE bitmap
+//        bmp.eraseColor(Color.RED);
+//        canvas.drawBitmap(bmp, 0.0f, 0.0f, drawPaint);
+
         canvas.drawRect(new Rect(10, 10, 300, 300), drawPaint);
         drawPaint.setColor(Color.BLACK);
         drawPaint.setTextSize(30);
