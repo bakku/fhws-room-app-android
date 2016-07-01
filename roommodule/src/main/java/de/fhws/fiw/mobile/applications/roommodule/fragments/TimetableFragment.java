@@ -58,13 +58,15 @@ public class TimetableFragment extends Fragment {
 //        ScrollView scrollView = (ScrollView) this.rootView.findViewById(R.id.scrollview_drawed_timetable);
 //        scrollView.addView(new TimetableView(getContext(), null));
 
+        loadRoomData();
+
         LinearLayout linearLayout = (LinearLayout) this.rootView.findViewById(R.id.scrollview_content);
-        linearLayout.addView(new TimetableView(getContext(), null));
+        linearLayout.addView(new TimetableView(getContext(), null, this.room));
 
 
 //        setSizeOfAnQuarterHourInDp();
 //        setSizeOfFiveMinutesInDp();
-//        loadRoomData();
+
 //        iterateOverLectures();
 
 //        getFragmentManager().beginTransaction()

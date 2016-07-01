@@ -20,6 +20,4 @@ public interface TimetableConfig {
     int TIMETABLE_RIGHT_MARGIN_IN_DP = 16;
 
     int LEFT_MARGIN_OF_TIMETABLE_ENTRY_IN_DP = 64;
-
-    int RIGHT_MARGIN_OF_TIMETABLE_ENTRY_IN_DP = 16;
 }
