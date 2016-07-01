@@ -53,7 +53,6 @@ public class TimetableFragment extends Fragment {
         this.rootView = (FrameLayout) inflater.inflate(R.layout.drawed_timetable, parent, false);
 
         TimetableView timetableView = new TimetableView(getContext(), null);
-        timetableView.setText("Hallo");
 
         ScrollView scrollView = (ScrollView)this.rootView.findViewById(R.id.scrollview_drawed_timetable);
         scrollView.addView(new TimetableView(getContext(), null));

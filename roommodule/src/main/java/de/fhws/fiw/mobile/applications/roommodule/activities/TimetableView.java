@@ -1,59 +1,77 @@
 package de.fhws.fiw.mobile.applications.roommodule.activities;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.Shader;
-import android.support.annotation.AttrRes;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
 
 import de.fhws.fiw.mobile.applications.roommodule.models.Room;
-import de.fhws.fiw.mobile.applications.roommodule.models.RoomData;
 
 /**
  * Created by Patrick Müller on 30.06.2016.
  */
 public class TimetableView extends View {
 
-    // setup initial color
-    private final int paintColor = Color.BLACK;
-    // defines paint and canvas
+
     private Paint drawPaint;
+
+    private TimetableViewConfig viewConfig;
+
+    private int sizeOfAnQuarterHourInDp;
+
+    private int sizeOfFiveMinutesInDp;
 
     private Room room;
 
-    private String s;
-
     public TimetableView(Context context, AttributeSet attributeSet) {
+
         super(context, attributeSet);
+
         this.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+
+        this.viewConfig = new TimetableViewConfig();
+
+        calculateSizeOfAnQuarterHourInDp();
+
+        calculateSizeOfFiveMinutesInDp();
+
         setFocusable(true);
+
         setFocusableInTouchMode(true);
+
         setupPaint();
     }
 
-    public TimetableView(Context context, AttributeSet attributeSet, Room room){
+    private void calculateSizeOfAnQuarterHourInDp() {
+        int sizeOfQuarterHourInDp = (int) (((this.viewConfig.TIMETABLE_DISTANCE_BETWEEN_TWO_LINES_IN_DP) /
+                getResources().getDisplayMetrics().density) / 4);
+        this.sizeOfAnQuarterHourInDp = sizeOfQuarterHourInDp;
+    }
+
+    private void calculateSizeOfFiveMinutesInDp() {
+        int sizeOfFiveMinutesInDp = (int) (((this.viewConfig.TIMETABLE_DISTANCE_BETWEEN_TWO_LINES_IN_DP) /
+                getResources().getDisplayMetrics().density) / 12);
+        this.sizeOfFiveMinutesInDp = sizeOfFiveMinutesInDp;
+    }
+
+    public TimetableView(Context context, AttributeSet attributeSet, Room room) {
         this(context, attributeSet);
         this.room = room;
     }
 
-    public void setText(String s){
-        this.s = s;
-    }
-
     private void setupPaint() {
-        drawPaint = new Paint();
-        drawPaint.setColor(paintColor);
-        drawPaint.setAntiAlias(true);
-        drawPaint.setStrokeWidth(5);
-        drawPaint.setStyle(Paint.Style.STROKE);
-        drawPaint.setStrokeJoin(Paint.Join.ROUND);
-        drawPaint.setStrokeCap(Paint.Cap.ROUND);
+
+        this.drawPaint = new Paint();
+        this.drawPaint.setColor(Color.BLACK);
+        this.drawPaint.setAntiAlias(true);
+        this.drawPaint.setStrokeWidth(4);
+        this.drawPaint.setStyle(Paint.Style.STROKE);
+        this.drawPaint.setStrokeJoin(Paint.Join.ROUND);
+        this.drawPaint.setStrokeCap(Paint.Cap.ROUND);
     }
 
     @Override
@@ -82,18 +100,16 @@ public class TimetableView extends View {
         drawPaint.setStyle(Paint.Style.FILL);
         drawPaint.setColor(Color.MAGENTA);
 
-//        drawPaint.setShadowLayer(10.0f, 10.0f, 10.0f, 0xFF000000);
         drawPaint.setShadowLayer(10, 3, 3, Color.GRAY);
-//
-//
-//        Bitmap bmp = Bitmap.createBitmap(40, 40, Bitmap.Config.ARGB_8888); // this creates a MUTABLE bitmap
-//        bmp.eraseColor(Color.RED);
-//        canvas.drawBitmap(bmp, 0.0f, 0.0f, drawPaint);
 
         canvas.drawRect(new Rect(10, 10, 300, 300), drawPaint);
         drawPaint.setColor(Color.BLACK);
         drawPaint.setTextSize(30);
         //50 ist linke untere ecke
         canvas.drawText("blob", 40, 50, drawPaint);
+    }
+
+    private void drawTimeLines(){
+
     }
 }
