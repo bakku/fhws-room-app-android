@@ -13,6 +13,7 @@ import android.view.MenuItem;
 
 import de.fhws.fiw.mobile.applications.roommodule.R;
 import de.fhws.fiw.mobile.applications.roommodule.adapter.PagerAdapter;
+import de.fhws.fiw.mobile.applications.roommodule.fragments.UsedRoomsFragment;
 import de.fhws.fiw.mobile.applications.roommodule.transformer.DepthPageTransformer;
 
 
@@ -26,6 +27,8 @@ public class OverviewActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tabview);
+
+        initViewPagerAndTabs();
     }
 
     @Override
@@ -42,7 +45,7 @@ public class OverviewActivity extends AppCompatActivity {
         viewPager.setPageTransformer(true, new DepthPageTransformer());
 
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
-        //pagerAdapter.addFragment(new ProfessorFragment(), "Professors");
+        pagerAdapter.addFragment(new UsedRoomsFragment(), "Belegt");
         //pagerAdapter.addFragment(new UniversityPersonalFragment(), "Ordinary");
         viewPager.setAdapter(pagerAdapter);
 

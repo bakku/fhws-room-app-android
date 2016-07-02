@@ -26,6 +26,11 @@ public class UsedRoomsAdapter extends RecyclerView.Adapter<UsedRoomsViewHolder> 
         this.layout = layout;
     }
 
+    public UsedRoomsAdapter(List<Room> usedRooms, int layout){
+        this(layout);
+        this.usedRooms = usedRooms;
+    }
+
     @Override
     public UsedRoomsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(this.layout, parent, false);
@@ -34,7 +39,7 @@ public class UsedRoomsAdapter extends RecyclerView.Adapter<UsedRoomsViewHolder> 
 
     @Override
     public void onBindViewHolder(UsedRoomsViewHolder holder, int position) {
-
+        holder.assignData(this.usedRooms.get(position));
     }
 
     @Override
