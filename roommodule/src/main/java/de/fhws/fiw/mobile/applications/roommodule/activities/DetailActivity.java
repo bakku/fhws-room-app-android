@@ -1,5 +1,6 @@
 package de.fhws.fiw.mobile.applications.roommodule.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -16,13 +17,19 @@ import de.fhws.fiw.mobile.applications.roommodule.transformer.DepthPageTransform
  */
 public class DetailActivity extends AppCompatActivity {
 
+    private String nameOfRoom;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tabview);
 
+        Intent intent = getIntent();
+
+        this.nameOfRoom = intent.getExtras().getString("nameOfRoom");
+
         initViewPagerAndTabs();
+
 
         // TODO: ueberpruefen ob OK
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -31,12 +38,18 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+
     private void initViewPagerAndTabs() {
         ViewPager viewPager = (android.support.v4.view.ViewPager) findViewById(R.id.viewPager);
         viewPager.setPageTransformer(true, new DepthPageTransformer());
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(new DetailInformationFragment(), "RoomDetail");
-        pagerAdapter.addFragment(new TimetableFragment(), "Timetable");
+        pagerAdapter.addFragment(TimetableFragment.newInstance(this.nameOfRoom), "Timetable");
         viewPager.setAdapter(pagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);

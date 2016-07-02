@@ -10,6 +10,7 @@ import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 
 import de.fhws.fiw.mobile.applications.roommodule.R;
+import de.fhws.fiw.mobile.applications.roommodule.models.RoomData;
 import de.fhws.fiw.mobile.applications.roommodule.views.RoomTestData;
 import de.fhws.fiw.mobile.applications.roommodule.views.TimetableView;
 import de.fhws.fiw.mobile.applications.roommodule.models.Room;
@@ -22,6 +23,16 @@ public class TimetableFragment extends Fragment {
     private LinearLayout rootView;
 
     private Room room;
+
+    public static TimetableFragment newInstance(String nameOfRoomAsString) {
+        TimetableFragment timetableFragment= new TimetableFragment();
+
+        Bundle args = new Bundle();
+        args.putString("nameOfRoom", nameOfRoomAsString);
+        timetableFragment.setArguments(args);
+
+        return timetableFragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -37,8 +48,9 @@ public class TimetableFragment extends Fragment {
 //                observer.removeGlobalOnLayoutListener(this);
 //            }
 //        });
+        String nameOfRoom = getArguments().getString("nameOfRoom");
 
-        loadRoomData();
+        loadRoomData(nameOfRoom);
 
         LinearLayout linearLayout = (LinearLayout) this.rootView.findViewById(R.id.scrollview_content);
         linearLayout.addView(new TimetableView(getContext(), null, this.room));
@@ -47,7 +59,7 @@ public class TimetableFragment extends Fragment {
         return this.rootView;
     }
 
-    private void loadRoomData() {
-        this.room = new RoomTestData().getTestRoom();
+    private void loadRoomData(String nameOfRoom) {
+        this.room = RoomData.getInstance().getRoomByName(nameOfRoom);
     }
 }

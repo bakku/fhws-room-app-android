@@ -14,10 +14,6 @@ public class Room {
 
     private String roomName;
 
-    private String freeInMinutes;
-
-    private String freeForMinutes;
-
     private List<Lecture> listOfLectures;
 
     public Room() {
@@ -53,23 +49,15 @@ public class Room {
         this.listOfLectures = listOfLectures;
     }
 
-    public String getFreeForMinutes() {
+    public int getFreeForMinutes() {
         long freeForMinutes = new RoomFreeForMinutesCalculation(this).calculateTimeRoomIsFreeForMinutes();
-        return String.valueOf(freeForMinutes);
+        return (int) freeForMinutes;
     }
 
-    public void setFreeForMinutes(String freeForMinutes) {
-        this.freeForMinutes = freeForMinutes;
-    }
-
-    public String getFreeInMinutes() {
+    public int getFreeInMinutes() {
 
         long freeInMinutes = new RoomFreeInMinutesCalculation(this).calculateTimeRoomWillBeFreeInMinutes();
-        return String.valueOf(freeInMinutes);
-    }
-
-    public void setFreeInMinutes(String freeInMinutes) {
-        this.freeInMinutes = freeInMinutes;
+        return (int) freeInMinutes;
     }
 
     public void addLecture(Lecture lecture) {

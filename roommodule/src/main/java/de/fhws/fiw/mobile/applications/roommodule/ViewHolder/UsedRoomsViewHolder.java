@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import de.fhws.fiw.mobile.applications.roommodule.R;
 import de.fhws.fiw.mobile.applications.roommodule.activities.DetailActivity;
+import de.fhws.fiw.mobile.applications.roommodule.helper.MinutesToTimestampFormatter;
 import de.fhws.fiw.mobile.applications.roommodule.models.Room;
 
 /**
@@ -15,6 +16,7 @@ import de.fhws.fiw.mobile.applications.roommodule.models.Room;
  */
 public class UsedRoomsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+    private String nameOfRoomAsString;
     private final TextView nameOfRoom;
     private final TextView freeInValue;
     private final TextView freeForValue;
@@ -34,14 +36,17 @@ public class UsedRoomsViewHolder extends RecyclerView.ViewHolder implements View
     public void assignData(Room room){
 
         this.nameOfRoom.setText(room.getRoomName());
-        this.freeForValue.setText(room.getFreeForMinutes());
-        this.freeInValue.setText(room.getFreeInMinutes());
+        this.freeForValue.setText(MinutesToTimestampFormatter.toTimestamp(room.getFreeForMinutes()));
+        this.freeInValue.setText(MinutesToTimestampFormatter.toTimestamp(room.getFreeInMinutes()));
+
+        this.nameOfRoomAsString = room.getRoomName();
 
     }
 
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(this.context, DetailActivity.class);
+        intent.putExtra("nameOfRoom", this.nameOfRoomAsString);
         this.context.startActivity(intent);
     }
 }
