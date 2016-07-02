@@ -39,6 +39,10 @@ public class TimeFormatter {
         return calendar.getTimeInMillis();
     }
 
+    public static long differenceInMinutes(Calendar ealier, Calendar later){
+        return (later.getTimeInMillis() - ealier.getTimeInMillis()) / (1000 * 60);
+    }
+
     public static int getHourFromDate(Date date){
 
         Calendar calendar = Calendar.getInstance();

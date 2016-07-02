@@ -1,10 +1,13 @@
 package de.fhws.fiw.mobile.applications.roommodule.adapter;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import de.fhws.fiw.mobile.applications.roommodule.viewholder.UsedRoomsViewHolder;
@@ -18,8 +21,8 @@ public class UsedRoomsAdapter extends RecyclerView.Adapter<UsedRoomsViewHolder> 
     private int layout;
     private List<Room> usedRooms;
 
-    public UsedRoomsAdapter(List<Room> rooms, int layout) {
-        //TODO
+    public UsedRoomsAdapter(int layout) {
+        this.usedRooms = new LinkedList<>();
         this.layout = layout;
     }
 
@@ -36,6 +39,24 @@ public class UsedRoomsAdapter extends RecyclerView.Adapter<UsedRoomsViewHolder> 
 
     @Override
     public int getItemCount() {
-        return 0;
+        return this.usedRooms.size();
+    }
+
+    public void addUsedRoom(Room usedRoom){
+        this.usedRooms.add(usedRoom);
+        informAdapterAboutChange();
+    }
+
+    private void informAdapterAboutChange() {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            public void run() {
+                notifyDataSetChanged();
+            }
+        });
+    }
+
+    private void sortByFreeInMinutes(){
+
     }
 }

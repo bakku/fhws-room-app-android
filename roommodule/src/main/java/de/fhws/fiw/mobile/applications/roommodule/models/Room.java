@@ -3,6 +3,8 @@ package de.fhws.fiw.mobile.applications.roommodule.models;
 import java.util.LinkedList;
 import java.util.List;
 
+import de.fhws.fiw.mobile.applications.roommodule.helper.RoomFreeOrUsedDetermination;
+
 /**
  * Created by christian on 09/06/16.
  */
@@ -27,6 +29,10 @@ public class Room {
     public Room(String roomName, List<Lecture> listOfLectures) {
         this.roomName = roomName;
         this.listOfLectures = listOfLectures;
+    }
+
+    public boolean roomIsFree(){
+        return new RoomFreeOrUsedDetermination(this).roomIsFree();
     }
 
     public String getRoomName() {
