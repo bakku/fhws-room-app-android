@@ -1,19 +1,23 @@
 package de.fhws.fiw.mobile.applications.roommodule.views;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.TabLayout;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewTreeObserver;
 
 import de.fhws.fiw.mobile.applications.roommodule.R;
 import de.fhws.fiw.mobile.applications.roommodule.helper.DpPixelConverter;
 import de.fhws.fiw.mobile.applications.roommodule.models.Lecture;
 import de.fhws.fiw.mobile.applications.roommodule.models.Room;
-import de.fhws.fiw.mobile.applications.roommodule.views.TimetableConfig;
-import de.fhws.fiw.mobile.applications.roommodule.views.TimetableHeightCalculator;
 
 /**
  * Created by Patrick Müller on 30.06.2016.
@@ -32,6 +36,7 @@ public class TimetableView extends View {
 
         this.context = context;
 
+        //to allow shadows
         this.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
         setFocusable(true);
@@ -63,7 +68,15 @@ public class TimetableView extends View {
         DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
         int screenWidth = displayMetrics.widthPixels;
         int screenHeight = displayMetrics.heightPixels;
+//        setMeasuredDimension(screenWidth, screenHeight - toPx(144));
         setMeasuredDimension(screenWidth, screenHeight);
+
+//        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+//            setMeasuredDimension(screenWidth, 1200);
+//        }else{
+//            setMeasuredDimension(screenWidth, screenHeight);
+//        }
+
     }
 
     @Override
@@ -74,6 +87,8 @@ public class TimetableView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+        System.out.println("CanvasWidth: " + canvas.getWidth() + " CanvasHeight: " +  canvas.getHeight());
 
         drawTimeLines(canvas);
         drawTimeNumbers(canvas);

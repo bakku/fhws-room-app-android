@@ -7,7 +7,7 @@ public interface TimetableConfig {
 
     int TIMETABLE_BEGINS_AT_HOUR = 8;
 
-    int TIMETABLE_END_AT_HOUR = 24;
+    int TIMETABLE_END_AT_HOUR = 22;
 
     int TIMETABLE_DISTANCE_BETWEEN_TWO_LINES_IN_DP = 40;
 
