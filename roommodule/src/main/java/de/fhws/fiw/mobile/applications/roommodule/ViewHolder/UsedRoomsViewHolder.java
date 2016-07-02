@@ -1,11 +1,13 @@
 package de.fhws.fiw.mobile.applications.roommodule.viewholder;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import de.fhws.fiw.mobile.applications.roommodule.R;
+import de.fhws.fiw.mobile.applications.roommodule.activities.DetailActivity;
 import de.fhws.fiw.mobile.applications.roommodule.models.Room;
 
 /**
@@ -39,6 +41,7 @@ public class UsedRoomsViewHolder extends RecyclerView.ViewHolder implements View
 
     @Override
     public void onClick(View v) {
-
+        Intent intent = new Intent(this.context, DetailActivity.class);
+        this.context.startActivity(intent);
     }
 }

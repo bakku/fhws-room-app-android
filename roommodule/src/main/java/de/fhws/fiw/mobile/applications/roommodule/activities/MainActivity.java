@@ -9,7 +9,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import de.fhws.fiw.mobile.applications.roommodule.R;
+import de.fhws.fiw.mobile.applications.roommodule.adapter.FreeRoomsAdapter;
 import de.fhws.fiw.mobile.applications.roommodule.models.Lecture;
+import de.fhws.fiw.mobile.applications.roommodule.models.Room;
 import de.fhws.fiw.mobile.applications.roommodule.models.RoomData;
 import de.fhws.fiw.mobile.applications.roommodule.network.DownloadListener;
 import de.fhws.fiw.mobile.applications.roommodule.network.RoomDownloader;
