@@ -10,42 +10,45 @@ import android.view.ViewGroup;
 import java.util.LinkedList;
 import java.util.List;
 
-import de.fhws.fiw.mobile.applications.roommodule.viewholder.UsedRoomsViewHolder;
 import de.fhws.fiw.mobile.applications.roommodule.models.Room;
+import de.fhws.fiw.mobile.applications.roommodule.viewholder.FreeRoomsViewHolder;
 
-public class UsedRoomsAdapter extends RecyclerView.Adapter<UsedRoomsViewHolder> {
+/**
+ * Created by Patrick Müller on 02.07.2016.
+ */
+public class FreeRoomsAdapter extends RecyclerView.Adapter<FreeRoomsViewHolder> {
 
     private int layout;
-    private List<Room> usedRooms;
+    private List<Room> freeRooms;
 
-    public UsedRoomsAdapter(int layout) {
-        this.usedRooms = new LinkedList<>();
+    public FreeRoomsAdapter(int layout) {
         this.layout = layout;
+        this.freeRooms = new LinkedList<>();
     }
 
-    public UsedRoomsAdapter(List<Room> usedRooms, int layout){
+    public FreeRoomsAdapter(List<Room> freeRooms, int layout) {
         this(layout);
-        this.usedRooms = usedRooms;
+        this.freeRooms = freeRooms;
     }
 
     @Override
-    public UsedRoomsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FreeRoomsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(this.layout, parent, false);
-        return new UsedRoomsViewHolder(v);
+        return new FreeRoomsViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(UsedRoomsViewHolder holder, int position) {
-        holder.assignData(this.usedRooms.get(position));
+    public void onBindViewHolder(FreeRoomsViewHolder holder, int position) {
+        holder.assignData(this.freeRooms.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return this.usedRooms.size();
+        return this.freeRooms.size();
     }
 
-    public void addUsedRoom(Room usedRoom){
-        this.usedRooms.add(usedRoom);
+    public void addFreeRoom(Room freeRoom){
+        this.freeRooms.add(freeRoom);
         informAdapterAboutChange();
     }
 
@@ -58,7 +61,7 @@ public class UsedRoomsAdapter extends RecyclerView.Adapter<UsedRoomsViewHolder> 
         });
     }
 
-    private void sortByFreeInMinutes(){
+    private void sortByFreeForMinutes(){
 
     }
 }

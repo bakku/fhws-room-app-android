@@ -9,10 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import de.fhws.fiw.mobile.applications.roommodule.R;
-import de.fhws.fiw.mobile.applications.roommodule.adapter.UsedRoomsAdapter;
+import de.fhws.fiw.mobile.applications.roommodule.adapter.FreeRoomsAdapter;
 import de.fhws.fiw.mobile.applications.roommodule.adapter.RoomAdapterTestData;
 
-public class UsedRoomsFragment extends Fragment {
+/**
+ * Created by Patrick Müller on 02.07.2016.
+ */
+public class FreeRoomsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -20,9 +23,8 @@ public class UsedRoomsFragment extends Fragment {
         RecyclerView rv = (RecyclerView) inflater.inflate(R.layout.room_entries_recycler_view, container, false);
 
         rv.setLayoutManager(new LinearLayoutManager(rv.getContext()));
-        rv.setAdapter(new UsedRoomsAdapter(new RoomAdapterTestData().getTestRoom(), R.layout.room_list_entry));
+        rv.setAdapter(new FreeRoomsAdapter(new RoomAdapterTestData().getTestRoom(), R.layout.room_list_entry));
 
         return rv;
     }
-
 }

@@ -11,11 +11,11 @@ import de.fhws.fiw.mobile.applications.roommodule.models.Room;
 /**
  * Created by Patrick Müller on 02.07.2016.
  */
-public class UsedRoomsAdapterTestData {
+public class RoomAdapterTestData {
 
     private List<Room> usedRooms;
 
-    public UsedRoomsAdapterTestData() {
+    public RoomAdapterTestData() {
         this.usedRooms = new LinkedList<>();
         createTestData();
     }
