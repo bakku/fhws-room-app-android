@@ -26,13 +26,14 @@ public class RoomFreeForMinutesCalculation {
         Lecture upcomingLecture = new UpcomingLectureDetermination(this.room).getUpcomingLecture();
 
         Calendar startOfUpcomingLecture = Calendar.getInstance();
-        startOfUpcomingLecture.setTime(upcomingLecture.getStartOfLecture());
 
         if(thereIsNoUpcomingLecture(upcomingLecture)){
 
             resultInMinutes = timeUntilMidnightInMinutes();
         }
         else{
+
+            startOfUpcomingLecture.setTime(upcomingLecture.getStartOfLecture());
 
             if (this.room.roomIsFree()) {
                 //Dann bis zum Beginn der nächsten Vorlesung

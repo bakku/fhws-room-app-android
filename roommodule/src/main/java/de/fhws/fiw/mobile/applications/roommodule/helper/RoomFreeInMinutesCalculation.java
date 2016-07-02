@@ -23,28 +23,34 @@ public class RoomFreeInMinutesCalculation {
 
         long resultInMinutes = 0;
 
-        Lecture upcomingLecture = new UpcomingLectureDetermination(this.room).getUpcomingLecture();
+//        Lecture upcomingLecture = new UpcomingLectureDetermination(this.room).getUpcomingLecture();
+//
+//        Calendar startOfUpcomingLecture = Calendar.getInstance();
+//
+//        if(thereIsNoUpcomingLecture(upcomingLecture)){
+//
+//            resultInMinutes = timeUntilMidnightInMinutes();
+//        }
+//        else{
 
-        Calendar startOfUpcomingLecture = Calendar.getInstance();
-        startOfUpcomingLecture.setTime(upcomingLecture.getStartOfLecture());
-
-        if(thereIsNoUpcomingLecture(upcomingLecture)){
-
-            resultInMinutes = timeUntilMidnightInMinutes();
-        }
-        else{
+//            startOfUpcomingLecture.setTime(upcomingLecture.getStartOfLecture());
 
             if (!this.room.roomIsFree()) {
-                //Dann müssen wir bis nächste Klausur warten, dass er frei wird
+                //Dann müssen wir bis ende dieses Kurses warten, dass er frei wird
 
-                resultInMinutes = TimeFormatter.differenceInMinutes(this.currentTime, startOfUpcomingLecture);
+                Lecture currentCourse = new CurrentLectureDetermination(this.room).getCurrentLecture();
+
+                Calendar endOfCurrentCourse = Calendar.getInstance();
+                endOfCurrentCourse.setTime(currentCourse.getEndOfLecture());
+
+                resultInMinutes = TimeFormatter.differenceInMinutes(this.currentTime, endOfCurrentCourse);
 
             } else {
                 //Dann ist der Raum sowieso schon frei
 
                 resultInMinutes = 0;
             }
-        }
+//        }
 
         return resultInMinutes;
     }

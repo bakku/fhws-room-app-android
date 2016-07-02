@@ -27,6 +27,8 @@ public class UsedRoomsAdapterTestData {
     private void createTestData() {
 
         //Raum 1
+        List<Lecture> listOfLecturesRoomOne = new LinkedList<>();
+          //Lecture
         Lecture lectureOne = new Lecture();
         lectureOne.setLectureName("Erste Vorlesung");
 
@@ -35,19 +37,38 @@ public class UsedRoomsAdapterTestData {
         beginOfLectureOne.set(Calendar.MINUTE, 0);
 
         Calendar endOfLectureOne = Calendar.getInstance();
-        endOfLectureOne.set(Calendar.HOUR_OF_DAY, 16);
-        endOfLectureOne.set(Calendar.MINUTE, 0);
+        endOfLectureOne.set(Calendar.HOUR_OF_DAY, 15);
+        endOfLectureOne.set(Calendar.MINUTE, 30);
 
         lectureOne.setStartOfLecture(beginOfLectureOne.getTime());
         lectureOne.setEndOfLecture(endOfLectureOne.getTime());
 
-        List<Lecture> listOfLectures = new LinkedList<>();
-        listOfLectures.add(lectureOne);
+        listOfLecturesRoomOne.add(lectureOne);
+          //Lecture
+          //Lecture
+        Lecture lectureTwo = new Lecture();
+        lectureTwo.setLectureName("Erste Vorlesung");
+
+        Calendar beginOfLectureTwo = Calendar.getInstance();
+        beginOfLectureTwo.set(Calendar.HOUR_OF_DAY, 16);
+        beginOfLectureTwo.set(Calendar.MINUTE, 30);
+
+        Calendar endOfLectureTwo = Calendar.getInstance();
+        endOfLectureTwo.set(Calendar.HOUR_OF_DAY, 16);
+        endOfLectureTwo.set(Calendar.MINUTE, 45);
+
+        lectureTwo.setStartOfLecture(beginOfLectureTwo.getTime());
+        lectureTwo.setEndOfLecture(endOfLectureTwo.getTime());
+
+        listOfLecturesRoomOne.add(lectureTwo);
+          //Lecture
 
         Room roomOne = new Room();
         roomOne.setRoomName("H.1.1");
-        roomOne.setListOfLectures(listOfLectures);
+        roomOne.setListOfLectures(listOfLecturesRoomOne);
         //Ende Raum 1
+
+
 
         this.usedRooms.add(roomOne);
     }

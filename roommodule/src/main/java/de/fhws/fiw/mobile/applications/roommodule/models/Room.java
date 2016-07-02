@@ -3,6 +3,8 @@ package de.fhws.fiw.mobile.applications.roommodule.models;
 import java.util.LinkedList;
 import java.util.List;
 
+import de.fhws.fiw.mobile.applications.roommodule.helper.RoomFreeForMinutesCalculation;
+import de.fhws.fiw.mobile.applications.roommodule.helper.RoomFreeInMinutesCalculation;
 import de.fhws.fiw.mobile.applications.roommodule.helper.RoomFreeOrUsedDetermination;
 
 /**
@@ -52,7 +54,8 @@ public class Room {
     }
 
     public String getFreeForMinutes() {
-        return freeForMinutes;
+        long freeForMinutes = new RoomFreeForMinutesCalculation(this).calculateTimeRoomIsFreeForMinutes();
+        return String.valueOf(freeForMinutes);
     }
 
     public void setFreeForMinutes(String freeForMinutes) {
@@ -60,7 +63,9 @@ public class Room {
     }
 
     public String getFreeInMinutes() {
-        return freeInMinutes;
+
+        long freeInMinutes = new RoomFreeInMinutesCalculation(this).calculateTimeRoomWillBeFreeInMinutes();
+        return String.valueOf(freeInMinutes);
     }
 
     public void setFreeInMinutes(String freeInMinutes) {
