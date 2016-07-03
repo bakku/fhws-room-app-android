@@ -38,7 +38,11 @@ public class OverviewActivity extends AppCompatActivity{
 
 
         initViewPagerAndTabs();
+        setBehaviourOfPullToUpdate();
 
+    }
+
+    private void setBehaviourOfPullToUpdate(){
         final FreeRoomsAdapter freeRoomsAdapter = this.freeRoomsFragment.getFreeRoomsAdapter();
         final UsedRoomsAdapter usedRoomsAdapter = this.usedRoomsFragment.getUsedRoomsAdapter();
 
