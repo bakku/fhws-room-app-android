@@ -45,13 +45,13 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void initViewPagerAndTabs() {
-        ViewPager viewPager = (android.support.v4.view.ViewPager) findViewById(R.id.viewPager);
+        ViewPager viewPager = (android.support.v4.view.ViewPager) findViewById(R.id.viewPager_detail);
         viewPager.setPageTransformer(true, new DepthPageTransformer());
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(new DetailInformationFragment(), "RoomDetail");
         pagerAdapter.addFragment(TimetableFragment.newInstance(this.nameOfRoom), "Timetable");
         viewPager.setAdapter(pagerAdapter);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout_detail);
         tabLayout.setupWithViewPager(viewPager);
     }
 }

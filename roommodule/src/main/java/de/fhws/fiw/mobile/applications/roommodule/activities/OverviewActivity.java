@@ -3,24 +3,16 @@ package de.fhws.fiw.mobile.applications.roommodule.activities;
 import android.app.SearchManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 import de.fhws.fiw.mobile.applications.roommodule.R;
 import de.fhws.fiw.mobile.applications.roommodule.adapter.PagerAdapter;
 import de.fhws.fiw.mobile.applications.roommodule.fragments.FreeRoomsFragment;
 import de.fhws.fiw.mobile.applications.roommodule.fragments.UsedRoomsFragment;
-import de.fhws.fiw.mobile.applications.roommodule.models.Lecture;
-import de.fhws.fiw.mobile.applications.roommodule.models.Room;
-import de.fhws.fiw.mobile.applications.roommodule.models.RoomData;
-import de.fhws.fiw.mobile.applications.roommodule.network.DownloadListener;
-import de.fhws.fiw.mobile.applications.roommodule.network.RoomDownloader;
 import de.fhws.fiw.mobile.applications.roommodule.transformer.DepthPageTransformer;
 
 
@@ -36,7 +28,7 @@ public class OverviewActivity extends AppCompatActivity{
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tabview);
+        setContentView(R.layout.tabview_with_pull_to_update);
 
         initViewPagerAndTabs();
     }
@@ -51,7 +43,7 @@ public class OverviewActivity extends AppCompatActivity{
     }
 
     private void initViewPagerAndTabs() {
-        ViewPager viewPager = (android.support.v4.view.ViewPager) findViewById(R.id.viewPager);
+        ViewPager viewPager = (android.support.v4.view.ViewPager) findViewById(R.id.viewPagerOverview);
         viewPager.setPageTransformer(true, new DepthPageTransformer());
 
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
@@ -62,7 +54,7 @@ public class OverviewActivity extends AppCompatActivity{
         pagerAdapter.addFragment(this.usedRoomsFragment, "Belegt");
         viewPager.setAdapter(pagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayoutOverview);
         tabLayout.setupWithViewPager(viewPager);
     }
 //
