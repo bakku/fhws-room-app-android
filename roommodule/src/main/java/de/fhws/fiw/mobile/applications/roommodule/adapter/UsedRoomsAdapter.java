@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import java.util.LinkedList;
 import java.util.List;
 
+import de.fhws.fiw.mobile.applications.roommodule.models.RoomData;
 import de.fhws.fiw.mobile.applications.roommodule.viewholder.UsedRoomsViewHolder;
 import de.fhws.fiw.mobile.applications.roommodule.models.Room;
 
@@ -19,12 +20,12 @@ public class UsedRoomsAdapter extends RecyclerView.Adapter<UsedRoomsViewHolder> 
     private List<Room> usedRooms;
 
     public UsedRoomsAdapter(int layout) {
-        this.usedRooms = new LinkedList<>();
         this.layout = layout;
+        this.usedRooms = new LinkedList<>();
     }
 
     public UsedRoomsAdapter(List<Room> usedRooms, int layout){
-        this(layout);
+        this.layout = layout;
         this.usedRooms = usedRooms;
     }
 

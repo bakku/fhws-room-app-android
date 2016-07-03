@@ -27,7 +27,7 @@ import de.fhws.fiw.mobile.applications.roommodule.transformer.DepthPageTransform
 /**
  * Created by Patrick Müller on 09.06.2016.
  */
-public class OverviewActivity extends AppCompatActivity implements DownloadListener{
+public class OverviewActivity extends AppCompatActivity{
 
     private FreeRoomsFragment freeRoomsFragment;
 
@@ -40,7 +40,7 @@ public class OverviewActivity extends AppCompatActivity implements DownloadListe
 
         initViewPagerAndTabs();
 
-        new RoomDownloader(this).execute();
+//        new RoomDownloader(this).execute();
     }
 
     @Override
@@ -67,23 +67,23 @@ public class OverviewActivity extends AppCompatActivity implements DownloadListe
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
     }
-
-    @Override
-    public void onDownloadSuccess() {
-        Toast.makeText(this, "Download Success", Toast.LENGTH_LONG).show();
-
-        for(Room room : RoomData.getInstance().getAllRooms()){
-
-            if(room.roomIsFree()){
-                this.freeRoomsFragment.getAdapter().addFreeRoom(room);
-            }else {
-                this.usedRoomsFragment.getAdapter().addUsedRoom(room);
-            }
-        }
-    }
-
-    @Override
-    public void onDownloadError() {
-        Toast.makeText(this, "Error during download", Toast.LENGTH_LONG).show();
-    }
+//
+//    @Override
+//    public void onDownloadSuccess() {
+//        Toast.makeText(this, "Download Success", Toast.LENGTH_LONG).show();
+//
+//        for(Room room : RoomData.getInstance().getAllRooms()){
+//
+//            if(room.roomIsFree()){
+//                this.freeRoomsFragment.getAdapter().addFreeRoom(room);
+//            }else {
+//                this.usedRoomsFragment.getAdapter().addUsedRoom(room);
+//            }
+//        }
+//    }
+//
+//    @Override
+//    public void onDownloadError() {
+//        Toast.makeText(this, "Error during download", Toast.LENGTH_LONG).show();
+//    }
 }

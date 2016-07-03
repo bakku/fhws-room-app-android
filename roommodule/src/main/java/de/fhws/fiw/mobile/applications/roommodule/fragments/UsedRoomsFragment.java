@@ -7,19 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import de.fhws.fiw.mobile.applications.roommodule.R;
 import de.fhws.fiw.mobile.applications.roommodule.adapter.UsedRoomsAdapter;
-import de.fhws.fiw.mobile.applications.roommodule.adapter.RoomAdapterTestData;
-import de.fhws.fiw.mobile.applications.roommodule.models.Lecture;
-import de.fhws.fiw.mobile.applications.roommodule.models.Room;
 import de.fhws.fiw.mobile.applications.roommodule.models.RoomData;
-import de.fhws.fiw.mobile.applications.roommodule.network.DownloadListener;
 
-public class UsedRoomsFragment extends Fragment implements DownloadListener{
-
-    private UsedRoomsAdapter adapter;
+public class UsedRoomsFragment extends Fragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,29 +21,8 @@ public class UsedRoomsFragment extends Fragment implements DownloadListener{
 
         rv.setLayoutManager(new LinearLayoutManager(rv.getContext()));
 
-        this.adapter = new UsedRoomsAdapter(R.layout.room_list_entry);
-
-        rv.setAdapter(this.adapter);
+        rv.setAdapter(new UsedRoomsAdapter(RoomData.getInstance().getUsedRooms(), R.layout.room_list_entry));
 
         return rv;
-    }
-
-    @Override
-    public void onDownloadSuccess() {
-
-        for(Room room : RoomData.getInstance().getAllRooms()){
-
-            if(!room.roomIsFree()){
-                this.adapter.addUsedRoom(room);
-            }
-        }
-    }
-
-    @Override
-    public void onDownloadError() {
-    }
-
-    public UsedRoomsAdapter getAdapter() {
-        return adapter;
     }
 }

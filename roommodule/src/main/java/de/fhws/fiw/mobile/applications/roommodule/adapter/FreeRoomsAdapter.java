@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import de.fhws.fiw.mobile.applications.roommodule.models.Room;
+import de.fhws.fiw.mobile.applications.roommodule.models.RoomData;
 import de.fhws.fiw.mobile.applications.roommodule.viewholder.FreeRoomsViewHolder;
 
 /**
@@ -27,7 +28,7 @@ public class FreeRoomsAdapter extends RecyclerView.Adapter<FreeRoomsViewHolder> 
     }
 
     public FreeRoomsAdapter(List<Room> freeRooms, int layout) {
-        this(layout);
+        this.layout = layout;
         this.freeRooms = freeRooms;
     }
 

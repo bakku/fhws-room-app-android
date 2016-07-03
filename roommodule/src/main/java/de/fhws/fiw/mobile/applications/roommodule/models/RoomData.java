@@ -1,12 +1,18 @@
 package de.fhws.fiw.mobile.applications.roommodule.models;
 
+import android.widget.Toast;
+
 import java.util.LinkedList;
 import java.util.List;
+
+import de.fhws.fiw.mobile.applications.roommodule.adapter.FreeRoomsAdapter;
+import de.fhws.fiw.mobile.applications.roommodule.network.DownloadListener;
+import de.fhws.fiw.mobile.applications.roommodule.network.RoomDownloader;
 
 /**
  * Created by christian on 09/06/16.
  */
-public class RoomData {
+public class RoomData implements DownloadListener{
 
     private static RoomData instance;
 
@@ -20,8 +26,13 @@ public class RoomData {
 
     private List<Room> listOfRooms;
 
-    public RoomData() {
+    private RoomData() {
         listOfRooms = new LinkedList<>();
+        downloadRooms();
+    }
+
+    private void downloadRooms(){
+        new RoomDownloader(this).execute();
     }
 
     public List<Room> getAllRooms() {
@@ -44,5 +55,37 @@ public class RoomData {
         }
 
         return null;
+    }
+
+    public List<Room> getFreeRooms(){
+        List<Room> listOfFreeRooms = new LinkedList<>();
+
+        for(Room room : this.getAllRooms()){
+            if(room.roomIsFree()){
+                listOfFreeRooms.add(room);
+            }
+        }
+
+        return listOfFreeRooms;
+    }
+
+    public List<Room> getUsedRooms(){
+        List<Room> listOfUsedRooms = new LinkedList<>();
+
+        for(Room room : this.getAllRooms()){
+            if(!room.roomIsFree()){
+                listOfUsedRooms.add(room);
+            }
+        }
+
+        return listOfUsedRooms;
+    }
+
+    @Override
+    public void onDownloadSuccess() {}
+
+    @Override
+    public void onDownloadError() {
+
     }
 }
