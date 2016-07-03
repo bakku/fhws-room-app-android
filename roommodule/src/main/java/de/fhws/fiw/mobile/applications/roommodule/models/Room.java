@@ -49,12 +49,12 @@ public class Room {
         this.listOfLectures = listOfLectures;
     }
 
-    public int getFreeForMinutes() {
+    public int calculateFreeForMinutes() {
         long freeForMinutes = new RoomFreeForMinutesCalculation(this).calculateTimeRoomIsFreeForMinutes();
         return (int) freeForMinutes;
     }
 
-    public int getFreeInMinutes() {
+    public int calculateFreeInMinutes() {
 
         long freeInMinutes = new RoomFreeInMinutesCalculation(this).calculateTimeRoomWillBeFreeInMinutes();
         return (int) freeInMinutes;

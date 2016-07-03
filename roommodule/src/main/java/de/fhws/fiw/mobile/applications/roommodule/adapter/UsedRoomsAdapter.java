@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import de.fhws.fiw.mobile.applications.roommodule.models.RoomData;
+import de.fhws.fiw.mobile.applications.roommodule.sorter.UsedRoomsComparator;
 import de.fhws.fiw.mobile.applications.roommodule.viewholder.UsedRoomsViewHolder;
 import de.fhws.fiw.mobile.applications.roommodule.models.Room;
 
@@ -22,6 +24,7 @@ public class UsedRoomsAdapter extends RecyclerView.Adapter<UsedRoomsViewHolder> 
     public UsedRoomsAdapter(int layout) {
         this.layout = layout;
         this.usedRooms = new LinkedList<>();
+        sortByFreeInMinutes();
     }
 
     public UsedRoomsAdapter(List<Room> usedRooms, int layout){
@@ -36,6 +39,7 @@ public class UsedRoomsAdapter extends RecyclerView.Adapter<UsedRoomsViewHolder> 
 
     public void addAllUsedRooms(List<Room> usedRooms) {
         this.usedRooms.addAll(usedRooms);
+        sortByFreeInMinutes();
         notifyDataSetChanged();
     }
 
@@ -70,6 +74,6 @@ public class UsedRoomsAdapter extends RecyclerView.Adapter<UsedRoomsViewHolder> 
     }
 
     private void sortByFreeInMinutes(){
-
+        Collections.sort(this.usedRooms, new UsedRoomsComparator());
     }
 }

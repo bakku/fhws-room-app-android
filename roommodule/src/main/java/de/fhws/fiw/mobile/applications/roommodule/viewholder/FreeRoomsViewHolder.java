@@ -1,9 +1,7 @@
 package de.fhws.fiw.mobile.applications.roommodule.viewholder;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -43,7 +41,7 @@ public class FreeRoomsViewHolder extends RecyclerView.ViewHolder implements View
     public void assignData(Room room){
 
         this.nameOfRoom.setText(room.getRoomName());
-        this.freeForValue.setText(MinutesToTimestampFormatter.toTimestamp(room.getFreeForMinutes()));
+        this.freeForValue.setText(MinutesToTimestampFormatter.toTimestamp(room.calculateFreeForMinutes()));
         this.freeInLabel.setText("");
         this.freeInValue.setText("");
 

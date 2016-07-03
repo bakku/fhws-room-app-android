@@ -36,8 +36,8 @@ public class UsedRoomsViewHolder extends RecyclerView.ViewHolder implements View
     public void assignData(Room room){
 
         this.nameOfRoom.setText(room.getRoomName());
-        this.freeForValue.setText(MinutesToTimestampFormatter.toTimestamp(room.getFreeForMinutes()));
-        this.freeInValue.setText(MinutesToTimestampFormatter.toTimestamp(room.getFreeInMinutes()));
+        this.freeForValue.setText(MinutesToTimestampFormatter.toTimestamp(room.calculateFreeForMinutes()));
+        this.freeInValue.setText(MinutesToTimestampFormatter.toTimestamp(room.calculateFreeInMinutes()));
 
         this.nameOfRoomAsString = room.getRoomName();
 

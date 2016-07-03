@@ -19,7 +19,7 @@ public class MinutesToTimestampFormatter {
         if(hours == 0){
             result += minutes + " Min";
         }else{
-            result += hours + " H " + minutes + "Min";
+            result += hours + " H " + minutes + " Min";
         }
 
         return result;

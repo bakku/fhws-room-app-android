@@ -7,10 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
 import de.fhws.fiw.mobile.applications.roommodule.models.Room;
+import de.fhws.fiw.mobile.applications.roommodule.sorter.FreeRoomsComparator;
 import de.fhws.fiw.mobile.applications.roommodule.viewholder.FreeRoomsViewHolder;
 
 /**
@@ -29,6 +33,7 @@ public class FreeRoomsAdapter extends RecyclerView.Adapter<FreeRoomsViewHolder> 
     public FreeRoomsAdapter(List<Room> freeRooms, int layout) {
         this.layout = layout;
         this.freeRooms = freeRooms;
+        sortByFreeForMinutes();
     }
 
     public void clear() {
@@ -38,6 +43,7 @@ public class FreeRoomsAdapter extends RecyclerView.Adapter<FreeRoomsViewHolder> 
 
     public void addAllFreeRooms(List<Room> freeRooms) {
         this.freeRooms.addAll(freeRooms);
+        sortByFreeForMinutes();
         notifyDataSetChanged();
     }
 
@@ -72,6 +78,6 @@ public class FreeRoomsAdapter extends RecyclerView.Adapter<FreeRoomsViewHolder> 
     }
 
     private void sortByFreeForMinutes() {
-
+        Collections.sort(this.freeRooms, new FreeRoomsComparator());
     }
 }
