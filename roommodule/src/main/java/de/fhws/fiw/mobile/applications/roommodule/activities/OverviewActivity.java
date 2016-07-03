@@ -39,8 +39,6 @@ public class OverviewActivity extends AppCompatActivity{
         setContentView(R.layout.tabview);
 
         initViewPagerAndTabs();
-
-//        new RoomDownloader(this).execute();
     }
 
     @Override

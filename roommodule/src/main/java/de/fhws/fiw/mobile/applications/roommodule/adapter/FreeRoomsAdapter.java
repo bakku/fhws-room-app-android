@@ -32,6 +32,15 @@ public class FreeRoomsAdapter extends RecyclerView.Adapter<FreeRoomsViewHolder> 
         this.freeRooms = freeRooms;
     }
 
+    public void clear() {
+        this.freeRooms.clear();
+        notifyDataSetChanged();
+    }
+    public void addAll(List<Room> freeRooms) {
+        this.freeRooms.addAll(freeRooms);
+        notifyDataSetChanged();
+    }
+
     @Override
     public FreeRoomsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(this.layout, parent, false);
