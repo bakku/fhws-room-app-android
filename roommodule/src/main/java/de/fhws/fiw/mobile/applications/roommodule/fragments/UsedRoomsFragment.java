@@ -15,6 +15,12 @@ import de.fhws.fiw.mobile.applications.roommodule.models.RoomData;
 
 public class UsedRoomsFragment extends Fragment{
 
+    private UsedRoomsAdapter usedRoomsAdapter;
+
+    public UsedRoomsFragment(){
+        this.usedRoomsAdapter = new UsedRoomsAdapter(RoomData.getInstance().getUsedRooms(), R.layout.room_list_entry);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -22,8 +28,12 @@ public class UsedRoomsFragment extends Fragment{
 
         rv.setLayoutManager(new LinearLayoutManager(rv.getContext()));
 
-        rv.setAdapter(new UsedRoomsAdapter(RoomData.getInstance().getUsedRooms(), R.layout.room_list_entry));
+        rv.setAdapter(this.usedRoomsAdapter);
 
         return rv;
+    }
+
+    public UsedRoomsAdapter getUsedRoomsAdapter() {
+        return usedRoomsAdapter;
     }
 }

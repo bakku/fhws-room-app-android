@@ -5,14 +5,18 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 
 import de.fhws.fiw.mobile.applications.roommodule.R;
+import de.fhws.fiw.mobile.applications.roommodule.adapter.FreeRoomsAdapter;
 import de.fhws.fiw.mobile.applications.roommodule.adapter.PagerAdapter;
+import de.fhws.fiw.mobile.applications.roommodule.adapter.UsedRoomsAdapter;
 import de.fhws.fiw.mobile.applications.roommodule.fragments.FreeRoomsFragment;
 import de.fhws.fiw.mobile.applications.roommodule.fragments.UsedRoomsFragment;
+import de.fhws.fiw.mobile.applications.roommodule.models.RoomData;
 import de.fhws.fiw.mobile.applications.roommodule.transformer.DepthPageTransformer;
 
 
@@ -20,6 +24,8 @@ import de.fhws.fiw.mobile.applications.roommodule.transformer.DepthPageTransform
  * Created by Patrick Müller on 09.06.2016.
  */
 public class OverviewActivity extends AppCompatActivity{
+
+    public SwipeRefreshLayout swipeContainer;
 
     private FreeRoomsFragment freeRoomsFragment;
 
@@ -30,7 +36,26 @@ public class OverviewActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tabview_with_pull_to_update);
 
+
         initViewPagerAndTabs();
+
+        final FreeRoomsAdapter freeRoomsAdapter = this.freeRoomsFragment.getFreeRoomsAdapter();
+        final UsedRoomsAdapter usedRoomsAdapter = this.usedRoomsFragment.getUsedRoomsAdapter();
+
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        swipeContainer.setColorSchemeColors(R.color.colorPrimary, R.color.colorAccent);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                freeRoomsAdapter.clear();
+                usedRoomsAdapter.clear();
+
+                freeRoomsAdapter.addAllFreeRooms(RoomData.getInstance().getFreeRooms());
+                usedRoomsAdapter.addAllUsedRooms(RoomData.getInstance().getUsedRooms());
+
+                swipeContainer.setRefreshing(false); //signal complete referesh
+            }
+        });
     }
 
     @Override
@@ -57,23 +82,5 @@ public class OverviewActivity extends AppCompatActivity{
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayoutOverview);
         tabLayout.setupWithViewPager(viewPager);
     }
-//
-//    @Override
-//    public void onDownloadSuccess() {
-//        Toast.makeText(this, "Download Success", Toast.LENGTH_LONG).show();
-//
-//        for(Room room : RoomData.getInstance().getAllRooms()){
-//
-//            if(room.roomIsFree()){
-//                this.freeRoomsFragment.getAdapter().addFreeRoom(room);
-//            }else {
-//                this.usedRoomsFragment.getAdapter().addUsedRoom(room);
-//            }
-//        }
-//    }
-//
-//    @Override
-//    public void onDownloadError() {
-//        Toast.makeText(this, "Error during download", Toast.LENGTH_LONG).show();
-//    }
+
 }

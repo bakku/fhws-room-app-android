@@ -24,7 +24,7 @@ public class RoomData implements DownloadListener{
         return instance;
     }
 
-    private List<Room> listOfRooms;
+    private final List<Room> listOfRooms;
 
     private RoomData() {
         listOfRooms = new LinkedList<>();
@@ -60,7 +60,7 @@ public class RoomData implements DownloadListener{
     public List<Room> getFreeRooms(){
         List<Room> listOfFreeRooms = new LinkedList<>();
 
-        for(Room room : this.getAllRooms()){
+        for(Room room : this.listOfRooms){
             if(room.roomIsFree()){
                 listOfFreeRooms.add(room);
             }
@@ -72,7 +72,7 @@ public class RoomData implements DownloadListener{
     public List<Room> getUsedRooms(){
         List<Room> listOfUsedRooms = new LinkedList<>();
 
-        for(Room room : this.getAllRooms()){
+        for(Room room : this.listOfRooms){
             if(!room.roomIsFree()){
                 listOfUsedRooms.add(room);
             }

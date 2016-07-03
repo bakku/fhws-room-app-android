@@ -11,7 +11,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import de.fhws.fiw.mobile.applications.roommodule.models.Room;
-import de.fhws.fiw.mobile.applications.roommodule.models.RoomData;
 import de.fhws.fiw.mobile.applications.roommodule.viewholder.FreeRoomsViewHolder;
 
 /**
@@ -33,10 +32,11 @@ public class FreeRoomsAdapter extends RecyclerView.Adapter<FreeRoomsViewHolder> 
     }
 
     public void clear() {
-        this.freeRooms.clear();
+        this.freeRooms = new LinkedList<>();
         notifyDataSetChanged();
     }
-    public void addAll(List<Room> freeRooms) {
+
+    public void addAllFreeRooms(List<Room> freeRooms) {
         this.freeRooms.addAll(freeRooms);
         notifyDataSetChanged();
     }
@@ -57,7 +57,7 @@ public class FreeRoomsAdapter extends RecyclerView.Adapter<FreeRoomsViewHolder> 
         return this.freeRooms.size();
     }
 
-    public void addFreeRoom(Room freeRoom){
+    public void addFreeRoom(Room freeRoom) {
         this.freeRooms.add(freeRoom);
         informAdapterAboutChange();
     }
@@ -71,7 +71,7 @@ public class FreeRoomsAdapter extends RecyclerView.Adapter<FreeRoomsViewHolder> 
         });
     }
 
-    private void sortByFreeForMinutes(){
+    private void sortByFreeForMinutes() {
 
     }
 }

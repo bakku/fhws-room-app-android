@@ -29,6 +29,16 @@ public class UsedRoomsAdapter extends RecyclerView.Adapter<UsedRoomsViewHolder> 
         this.usedRooms = usedRooms;
     }
 
+    public void clear() {
+        this.usedRooms = new LinkedList<>();
+        notifyDataSetChanged();
+    }
+
+    public void addAllUsedRooms(List<Room> usedRooms) {
+        this.usedRooms.addAll(usedRooms);
+        notifyDataSetChanged();
+    }
+
     @Override
     public UsedRoomsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(this.layout, parent, false);

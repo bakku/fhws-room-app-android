@@ -2,7 +2,6 @@ package de.fhws.fiw.mobile.applications.roommodule.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +17,12 @@ import de.fhws.fiw.mobile.applications.roommodule.models.RoomData;
  */
 public class FreeRoomsFragment extends Fragment{
 
+    private FreeRoomsAdapter freeRoomsAdapter;
+
+    public FreeRoomsFragment(){
+        this.freeRoomsAdapter = new FreeRoomsAdapter(RoomData.getInstance().getAllRooms(), R.layout.room_list_entry);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -25,8 +30,12 @@ public class FreeRoomsFragment extends Fragment{
 
         rv.setLayoutManager(new LinearLayoutManager(rv.getContext()));
 
-        rv.setAdapter(new FreeRoomsAdapter(RoomData.getInstance().getAllRooms(), R.layout.room_list_entry));
+        rv.setAdapter(this.freeRoomsAdapter);
 
         return rv;
+    }
+
+    public FreeRoomsAdapter getFreeRoomsAdapter() {
+        return this.freeRoomsAdapter;
     }
 }
