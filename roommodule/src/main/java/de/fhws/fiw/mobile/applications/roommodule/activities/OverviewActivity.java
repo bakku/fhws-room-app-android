@@ -37,6 +37,8 @@ public class OverviewActivity extends AppCompatActivity implements MenuItemCompa
 
     private SearchFragment searchFragment;
 
+    private SearchView searchView;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -73,9 +75,9 @@ public class OverviewActivity extends AppCompatActivity implements MenuItemCompa
         getMenuInflater().inflate(R.menu.search_menu, menu);
 
         final MenuItem menuItem = menu.findItem(R.id.action_search);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        this.searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        this.searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
         MenuItemCompat.setOnActionExpandListener(menuItem, this);
 
@@ -101,6 +103,7 @@ public class OverviewActivity extends AppCompatActivity implements MenuItemCompa
     @Override
     public boolean onMenuItemActionExpand(MenuItem item) {
         this.searchFragment = new SearchFragment();
+        searchFragment.setSearchView(this.searchView);
 
         getSupportFragmentManager()
                 .beginTransaction()
