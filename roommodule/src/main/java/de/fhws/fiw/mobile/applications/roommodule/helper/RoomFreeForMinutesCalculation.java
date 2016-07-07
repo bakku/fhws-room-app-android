@@ -1,6 +1,7 @@
 package de.fhws.fiw.mobile.applications.roommodule.helper;
 
 import java.util.Calendar;
+import java.util.Queue;
 
 import de.fhws.fiw.mobile.applications.roommodule.models.Lecture;
 import de.fhws.fiw.mobile.applications.roommodule.models.Room;
@@ -30,6 +31,15 @@ public class RoomFreeForMinutesCalculation {
         if(thereIsNoUpcomingLecture(upcomingLecture)){
 
             resultInMinutes = timeUntilMidnightInMinutes();
+
+            if(!this.room.roomIsFree()){
+                Lecture currentLecture = new CurrentLectureDetermination(this.room).getCurrentLecture();
+
+                Calendar endOfCurrentLecture = Calendar.getInstance();
+                endOfCurrentLecture.setTime(currentLecture.getEndOfLecture());
+
+                resultInMinutes = TimeFormatter.differenceInMinutes(endOfCurrentLecture, getMidnightAsCalendar());
+            }
         }
         else{
 
@@ -75,5 +85,15 @@ public class RoomFreeForMinutesCalculation {
         todayMidnight.set(Calendar.MILLISECOND, 0);
 
         return TimeFormatter.differenceInMinutes(this.currentTime, todayMidnight);
+    }
+
+    private Calendar getMidnightAsCalendar(){
+        Calendar todayMidnight = Calendar.getInstance();
+        todayMidnight.set(Calendar.HOUR_OF_DAY, 23);
+        todayMidnight.set(Calendar.MINUTE, 59);
+        todayMidnight.set(Calendar.SECOND, 59);
+        todayMidnight.set(Calendar.MILLISECOND, 0);
+
+        return todayMidnight;
     }
 }
