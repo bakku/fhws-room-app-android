@@ -24,11 +24,6 @@ public class DetailInformationFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.room_detail_list, parent, false);
 
@@ -36,7 +31,7 @@ public class DetailInformationFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-        RecyclerView.Adapter adapter = new DetailInformationAdapter();
+        RecyclerView.Adapter adapter = new DetailInformationAdapter(R.layout.room_detail_item);
         recyclerView.setAdapter(adapter);
 
         return rootView;
