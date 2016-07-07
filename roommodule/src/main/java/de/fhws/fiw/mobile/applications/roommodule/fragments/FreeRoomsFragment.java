@@ -20,7 +20,7 @@ public class FreeRoomsFragment extends Fragment{
     private FreeRoomsAdapter freeRoomsAdapter;
 
     public FreeRoomsFragment(){
-        this.freeRoomsAdapter = new FreeRoomsAdapter(RoomData.getInstance().getAllRooms(), R.layout.room_list_entry);
+        this.freeRoomsAdapter = new FreeRoomsAdapter(RoomData.getInstance().getFreeRooms(), R.layout.room_list_entry);
     }
 
     @Override
