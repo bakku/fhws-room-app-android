@@ -42,13 +42,14 @@ public class LectureDownloader extends AsyncTask<Void, Void, Void> {
     }
 
     @Override
+    protected void onCancelled() {
+        super.onCancelled();
+        downloadListener.onDownloadError();
+    }
+
+    @Override
     protected void onPostExecute(Void aVoid) {
-        if (isCancelled()) {
-            downloadListener.onDownloadError();
-        }
-        else {
-            workCounter.taskFinished();
-        }
+        workCounter.taskFinished();
     }
 
     private String buildUrlForRoom(Room room) {
