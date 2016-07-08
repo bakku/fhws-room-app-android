@@ -61,7 +61,8 @@ public class UsedRoomsAdapter extends RecyclerView.Adapter<UsedRoomsViewHolder> 
 
     public void addUsedRoom(Room usedRoom){
         this.usedRooms.add(usedRoom);
-        informAdapterAboutChange();
+        sortByFreeInMinutes();
+        notifyItemInserted(determinePosition(usedRoom));
     }
 
     private void informAdapterAboutChange() {
@@ -75,5 +76,19 @@ public class UsedRoomsAdapter extends RecyclerView.Adapter<UsedRoomsViewHolder> 
 
     private void sortByFreeInMinutes(){
         Collections.sort(this.usedRooms, new UsedRoomsComparator());
+    }
+
+    private int determinePosition(Room room) {
+        int newPosition = 0;
+
+        for (int i = 0; i < getItemCount(); i++) {
+            if (this.usedRooms.get(i).getRoomName().equals(room.getRoomName())) {
+                newPosition = i;
+                break;
+            }
+
+        }
+
+        return newPosition;
     }
 }

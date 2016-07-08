@@ -65,7 +65,8 @@ public class FreeRoomsAdapter extends RecyclerView.Adapter<FreeRoomsViewHolder> 
 
     public void addFreeRoom(Room freeRoom) {
         this.freeRooms.add(freeRoom);
-        informAdapterAboutChange();
+        sortByFreeForMinutes();
+        notifyItemInserted(determinePosition(freeRoom));
     }
 
     private void informAdapterAboutChange() {
@@ -79,5 +80,19 @@ public class FreeRoomsAdapter extends RecyclerView.Adapter<FreeRoomsViewHolder> 
 
     private void sortByFreeForMinutes() {
         Collections.sort(this.freeRooms, new FreeRoomsComparator());
+    }
+
+    private int determinePosition(Room room) {
+        int newPosition = 0;
+
+        for (int i = 0; i < getItemCount(); i++) {
+            if (this.freeRooms.get(i).getRoomName().equals(room.getRoomName())) {
+                newPosition = i;
+                break;
+            }
+
+        }
+
+        return newPosition;
     }
 }

@@ -21,6 +21,7 @@ import de.fhws.fiw.mobile.applications.roommodule.adapter.UsedRoomsAdapter;
 import de.fhws.fiw.mobile.applications.roommodule.fragments.FreeRoomsFragment;
 import de.fhws.fiw.mobile.applications.roommodule.fragments.SearchFragment;
 import de.fhws.fiw.mobile.applications.roommodule.fragments.UsedRoomsFragment;
+import de.fhws.fiw.mobile.applications.roommodule.models.Room;
 import de.fhws.fiw.mobile.applications.roommodule.models.RoomData;
 import de.fhws.fiw.mobile.applications.roommodule.network.DownloadListener;
 import de.fhws.fiw.mobile.applications.roommodule.transformer.DepthPageTransformer;
@@ -148,12 +149,19 @@ public class OverviewActivity extends AppCompatActivity implements MenuItemCompa
     }
 
     @Override
-    public void onDownloadSuccess() {
-        freeRoomsAdapter.addAllFreeRooms(RoomData.getInstance(this, false).getFreeRooms());
-        usedRoomsAdapter.addAllUsedRooms(RoomData.getInstance(this, false).getUsedRooms());
+    public void onOneRoomFinished(Room room) {
+        if (room.roomIsFree()) {
+            freeRoomsAdapter.addFreeRoom(room);
+        }
+        else {
+            usedRoomsAdapter.addUsedRoom(room);
+        }
+    }
 
+    @Override
+    public void onDownloadSuccess() {
         if (swipeUpdate) {
-            swipeContainer.setRefreshing(false); //signal complete referesh
+            swipeContainer.setRefreshing(false);
         }
         else {
             progressBar.setVisibility(View.GONE);
@@ -164,7 +172,7 @@ public class OverviewActivity extends AppCompatActivity implements MenuItemCompa
     @Override
     public void onDownloadError() {
         if (swipeUpdate) {
-            swipeContainer.setRefreshing(false); //signal complete referesh
+            swipeContainer.setRefreshing(false);
         }
         else {
             progressBar.setVisibility(View.GONE);

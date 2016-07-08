@@ -50,6 +50,7 @@ public class LectureDownloader extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         workCounter.taskFinished();
+        downloadListener.onOneRoomFinished(this.room);
     }
 
     private String buildUrlForRoom(Room room) {
