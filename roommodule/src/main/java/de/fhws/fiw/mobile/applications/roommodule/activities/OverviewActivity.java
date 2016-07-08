@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import de.fhws.fiw.mobile.applications.roommodule.R;
 import de.fhws.fiw.mobile.applications.roommodule.adapter.FreeRoomsAdapter;
@@ -44,12 +45,16 @@ public class OverviewActivity extends AppCompatActivity implements MenuItemCompa
 
     private UsedRoomsAdapter usedRoomsAdapter;
 
+    private ProgressBar progressBar;
+
+    private boolean swipeUpdate = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tabview_with_pull_to_update);
 
-
+        progressBar = (ProgressBar) findViewById(R.id.overviewProgressBar);
         initViewPagerAndTabs();
         setBehaviourOfPullToUpdate();
     }
@@ -62,6 +67,8 @@ public class OverviewActivity extends AppCompatActivity implements MenuItemCompa
             public void onRefresh() {
                 freeRoomsAdapter.clear();
                 usedRoomsAdapter.clear();
+
+                swipeUpdate = true;
 
                 RoomData.updateData(OverviewActivity.this, true);
             }
@@ -135,17 +142,32 @@ public class OverviewActivity extends AppCompatActivity implements MenuItemCompa
 
     @Override
     public void onDownloadStarted() {
+        if (swipeUpdate == false) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void onDownloadSuccess() {
         freeRoomsAdapter.addAllFreeRooms(RoomData.getInstance(this, false).getFreeRooms());
         usedRoomsAdapter.addAllUsedRooms(RoomData.getInstance(this, false).getUsedRooms());
-        swipeContainer.setRefreshing(false); //signal complete referesh
+
+        if (swipeUpdate) {
+            swipeContainer.setRefreshing(false); //signal complete referesh
+        }
+        else {
+            progressBar.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
     public void onDownloadError() {
-        swipeContainer.setRefreshing(false); //signal complete referesh
+        if (swipeUpdate) {
+            swipeContainer.setRefreshing(false); //signal complete referesh
+        }
+        else {
+            progressBar.setVisibility(View.GONE);
+        }
     }
 }
