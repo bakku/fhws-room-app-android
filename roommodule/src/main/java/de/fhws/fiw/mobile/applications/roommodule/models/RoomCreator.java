@@ -15,7 +15,7 @@ public class RoomCreator {
 
                 Room room = new Room(roomObject.getString("label"));
 
-                RoomData.getInstance().addRoom(room);
+                RoomData.getInstance(null, false).addRoom(room);
             }
         }
         catch (Exception e) {

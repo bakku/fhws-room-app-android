@@ -5,6 +5,7 @@ package de.fhws.fiw.mobile.applications.roommodule.network;
  */
 public interface DownloadListener {
 
+    void onDownloadStarted();
     void onDownloadSuccess();
     void onDownloadError();
 

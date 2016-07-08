@@ -11,6 +11,7 @@ import java.util.List;
 import de.fhws.fiw.mobile.applications.roommodule.R;
 import de.fhws.fiw.mobile.applications.roommodule.models.Room;
 import de.fhws.fiw.mobile.applications.roommodule.models.RoomData;
+import de.fhws.fiw.mobile.applications.roommodule.network.DownloadListener;
 import de.fhws.fiw.mobile.applications.roommodule.viewholder.SearchViewHolder;
 
 /**
@@ -23,7 +24,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> {
     private List<Room> filteredList;
 
     public SearchAdapter() {
-        roomList = RoomData.getInstance().getAllRooms();
+        roomList = RoomData.getInstance(null, false).getAllRooms();
         filteredList = new LinkedList<>();
     }
 

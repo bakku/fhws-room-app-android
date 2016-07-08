@@ -41,16 +41,18 @@ public class RoomDownloader extends AsyncTask<Void, Void, Void> {
     }
 
     @Override
-    protected void onPostExecute(Void aVoid) {
-        if (isCancelled()) {
-            downloadListener.onDownloadError();
-        }
-        else {
-            WorkCounter workCounter = new WorkCounter(RoomData.getInstance().getAllRooms().size(), downloadListener);
+    protected void onCancelled() {
+        super.onCancelled();
+        downloadListener.onDownloadError();
+    }
 
-            for (Room room : RoomData.getInstance().getAllRooms()) {
-                new LectureDownloader(downloadListener, room, workCounter).execute();
-            }
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        WorkCounter workCounter = new WorkCounter(RoomData.getInstance(null, false).getAllRooms().size(), downloadListener);
+
+        for (Room room : RoomData.getInstance(null, false).getAllRooms()) {
+            new LectureDownloader(downloadListener, room, workCounter).execute();
         }
     }
+
 }

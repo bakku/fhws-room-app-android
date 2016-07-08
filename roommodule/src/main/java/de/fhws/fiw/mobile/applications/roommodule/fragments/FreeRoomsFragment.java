@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import de.fhws.fiw.mobile.applications.roommodule.R;
 import de.fhws.fiw.mobile.applications.roommodule.adapter.FreeRoomsAdapter;
 import de.fhws.fiw.mobile.applications.roommodule.models.RoomData;
+import de.fhws.fiw.mobile.applications.roommodule.network.DownloadListener;
 
 /**
  * Created by Patrick Müller on 02.07.2016.
@@ -19,8 +20,12 @@ public class FreeRoomsFragment extends Fragment{
 
     private FreeRoomsAdapter freeRoomsAdapter;
 
-    public FreeRoomsFragment(){
-        this.freeRoomsAdapter = new FreeRoomsAdapter(RoomData.getInstance().getFreeRooms(), R.layout.room_list_entry);
+    public FreeRoomsFragment() {
+
+    }
+
+    public void setAdapter(FreeRoomsAdapter freeRoomsAdapter) {
+        this.freeRoomsAdapter = freeRoomsAdapter;
     }
 
     @Override
@@ -33,9 +38,5 @@ public class FreeRoomsFragment extends Fragment{
         rv.setAdapter(this.freeRoomsAdapter);
 
         return rv;
-    }
-
-    public FreeRoomsAdapter getFreeRoomsAdapter() {
-        return this.freeRoomsAdapter;
     }
 }

@@ -60,6 +60,6 @@ public class TimetableFragment extends Fragment {
     }
 
     private void loadRoomData(String nameOfRoom) {
-        this.room = RoomData.getInstance().getRoomByName(nameOfRoom);
+        this.room = RoomData.getInstance(null, false).getRoomByName(nameOfRoom);
     }
 }

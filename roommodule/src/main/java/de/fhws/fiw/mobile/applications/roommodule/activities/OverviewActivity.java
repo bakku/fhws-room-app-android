@@ -21,13 +21,14 @@ import de.fhws.fiw.mobile.applications.roommodule.fragments.FreeRoomsFragment;
 import de.fhws.fiw.mobile.applications.roommodule.fragments.SearchFragment;
 import de.fhws.fiw.mobile.applications.roommodule.fragments.UsedRoomsFragment;
 import de.fhws.fiw.mobile.applications.roommodule.models.RoomData;
+import de.fhws.fiw.mobile.applications.roommodule.network.DownloadListener;
 import de.fhws.fiw.mobile.applications.roommodule.transformer.DepthPageTransformer;
 
 
 /**
  * Created by Patrick Müller on 09.06.2016.
  */
-public class OverviewActivity extends AppCompatActivity implements MenuItemCompat.OnActionExpandListener {
+public class OverviewActivity extends AppCompatActivity implements MenuItemCompat.OnActionExpandListener, DownloadListener {
 
     public SwipeRefreshLayout swipeContainer;
 
@@ -39,6 +40,10 @@ public class OverviewActivity extends AppCompatActivity implements MenuItemCompa
 
     private SearchView searchView;
 
+    private FreeRoomsAdapter freeRoomsAdapter;
+
+    private UsedRoomsAdapter usedRoomsAdapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -47,13 +52,9 @@ public class OverviewActivity extends AppCompatActivity implements MenuItemCompa
 
         initViewPagerAndTabs();
         setBehaviourOfPullToUpdate();
-
     }
 
     private void setBehaviourOfPullToUpdate(){
-        final FreeRoomsAdapter freeRoomsAdapter = this.freeRoomsFragment.getFreeRoomsAdapter();
-        final UsedRoomsAdapter usedRoomsAdapter = this.usedRoomsFragment.getUsedRoomsAdapter();
-
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         swipeContainer.setColorSchemeColors(R.color.colorPrimary, R.color.colorAccent);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -62,10 +63,7 @@ public class OverviewActivity extends AppCompatActivity implements MenuItemCompa
                 freeRoomsAdapter.clear();
                 usedRoomsAdapter.clear();
 
-                freeRoomsAdapter.addAllFreeRooms(RoomData.getInstance().getFreeRooms());
-                usedRoomsAdapter.addAllUsedRooms(RoomData.getInstance().getUsedRooms());
-
-                swipeContainer.setRefreshing(false); //signal complete referesh
+                RoomData.updateData(OverviewActivity.this, true);
             }
         });
     }
@@ -91,7 +89,13 @@ public class OverviewActivity extends AppCompatActivity implements MenuItemCompa
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
 
         this.freeRoomsFragment = new FreeRoomsFragment();
+        this.freeRoomsAdapter = new FreeRoomsAdapter(RoomData.getInstance(this, false).getFreeRooms(), R.layout.room_list_entry);
+        this.freeRoomsFragment.setAdapter(freeRoomsAdapter);
+
         this.usedRoomsFragment = new UsedRoomsFragment();
+        this.usedRoomsAdapter = new UsedRoomsAdapter(RoomData.getInstance(this, false).getUsedRooms(), R.layout.room_list_entry);
+        this.usedRoomsFragment.setAdapter(usedRoomsAdapter);
+
         pagerAdapter.addFragment(this.freeRoomsFragment, "Frei");
         pagerAdapter.addFragment(this.usedRoomsFragment, "Belegt");
         viewPager.setAdapter(pagerAdapter);
@@ -127,5 +131,21 @@ public class OverviewActivity extends AppCompatActivity implements MenuItemCompa
         this.searchFragment = null;
 
         return true;
+    }
+
+    @Override
+    public void onDownloadStarted() {
+    }
+
+    @Override
+    public void onDownloadSuccess() {
+        freeRoomsAdapter.addAllFreeRooms(RoomData.getInstance(this, false).getFreeRooms());
+        usedRoomsAdapter.addAllUsedRooms(RoomData.getInstance(this, false).getUsedRooms());
+        swipeContainer.setRefreshing(false); //signal complete referesh
+    }
+
+    @Override
+    public void onDownloadError() {
+        swipeContainer.setRefreshing(false); //signal complete referesh
     }
 }

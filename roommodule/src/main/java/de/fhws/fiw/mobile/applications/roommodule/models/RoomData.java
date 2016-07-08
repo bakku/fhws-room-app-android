@@ -12,13 +12,17 @@ import de.fhws.fiw.mobile.applications.roommodule.network.RoomDownloader;
 /**
  * Created by christian on 09/06/16.
  */
-public class RoomData implements DownloadListener{
+public class RoomData {
 
     private static RoomData instance;
 
-    public static RoomData getInstance() {
-        if (instance == null) {
-            instance = new RoomData();
+    public static RoomData updateData(DownloadListener downloadListener, boolean refreshData) {
+        return RoomData.getInstance(downloadListener, refreshData);
+    }
+
+    public static RoomData getInstance(DownloadListener downloadListener, boolean refreshData) {
+        if (instance == null || refreshData) {
+            instance = new RoomData(downloadListener);
         }
 
         return instance;
@@ -26,13 +30,14 @@ public class RoomData implements DownloadListener{
 
     private final List<Room> listOfRooms;
 
-    private RoomData() {
+    private RoomData(DownloadListener downloadListener) {
         listOfRooms = new LinkedList<>();
-        downloadRooms();
+        downloadRooms(downloadListener);
     }
 
-    private void downloadRooms(){
-        new RoomDownloader(this).execute();
+    private void downloadRooms(DownloadListener downloadListener){
+        new RoomDownloader(downloadListener).execute();
+        downloadListener.onDownloadStarted();
     }
 
     public List<Room> getAllRooms() {
@@ -79,13 +84,5 @@ public class RoomData implements DownloadListener{
         }
 
         return listOfUsedRooms;
-    }
-
-    @Override
-    public void onDownloadSuccess() {}
-
-    @Override
-    public void onDownloadError() {
-
     }
 }

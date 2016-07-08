@@ -12,13 +12,17 @@ import android.view.ViewGroup;
 import de.fhws.fiw.mobile.applications.roommodule.R;
 import de.fhws.fiw.mobile.applications.roommodule.adapter.UsedRoomsAdapter;
 import de.fhws.fiw.mobile.applications.roommodule.models.RoomData;
+import de.fhws.fiw.mobile.applications.roommodule.network.DownloadListener;
 
 public class UsedRoomsFragment extends Fragment{
 
     private UsedRoomsAdapter usedRoomsAdapter;
 
     public UsedRoomsFragment(){
-        this.usedRoomsAdapter = new UsedRoomsAdapter(RoomData.getInstance().getUsedRooms(), R.layout.room_list_entry);
+    }
+
+    public void setAdapter(UsedRoomsAdapter usedRoomsAdapter) {
+        this.usedRoomsAdapter = usedRoomsAdapter;
     }
 
     @Override
